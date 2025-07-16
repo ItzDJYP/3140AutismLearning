@@ -1,3 +1,4 @@
+**Team Name: Atlus**
 * *Member Roles:* *
 Patrick - Project Manager| [Github](https://github.com/ItzDJYP)
 Ashanti - UX/UI Designer| [Github](https://github.com/ashantib102)
