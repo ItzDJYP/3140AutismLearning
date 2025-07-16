@@ -1,5 +1,5 @@
 **Team Name: Atlus**
-* *Member Roles:* *
+**Member Roles:**
 
 Patrick - Project Manager| [Github](https://github.com/ItzDJYP)
 
