@@ -68,15 +68,11 @@ Autism Education Hub with resources and stories to promote inclusivity
 ```plaintext
 atlus/
 │
-├── src/                       # Frontend source files
-│   ├── assets/                # Icons, illustrations, fonts
-│   ├── components/            # Reusable UI components
-│   ├── pages/                 # Core views (Home, Login, Dashboard)
-│   ├── games/                 # Minigame logic and interfaces
-│   ├── utils/                 # Helper functions (e.g., point system)
-│   ├── services/              # API calls and data management
-│   └── App.js / main.js       # Root component setup
-│
+├── Project Website/           # Project Folder
+│   ├── index.html             # Home page
+│   ├── proto.html             # Games page
+│   ├── script.js              # Javascript Functionality
+│   ├── styles.css             # Stylesheet
 
 ```
 
