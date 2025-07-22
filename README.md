@@ -68,8 +68,6 @@ Autism Education Hub with resources and stories to promote inclusivity
 ```plaintext
 atlus/
 │
-├── public/                    # Static files (images, favicon, etc.)
-│
 ├── src/                       # Frontend source files
 │   ├── assets/                # Icons, illustrations, fonts
 │   ├── components/            # Reusable UI components
@@ -79,19 +77,7 @@ atlus/
 │   ├── services/              # API calls and data management
 │   └── App.js / main.js       # Root component setup
 │
-├── backend/                   # Backend logic and server setup
-│   ├── models/                # Database schemas (User, GameData, Reward)
-│   ├── routes/                # API route definitions
-│   ├── controllers/           # Logic for API handling
-│   └── server.js              # Node.js / Express server entry point
-│
-├── docs/                      # Documentation and educational materials
-│   └── autism_resources.md    # Informative content about autism
-│
-├── .env                       # Environment variables
-├── README.md                  # Project overview and setup instructions
-├── package.json               # Project dependencies and scripts
-└── LICENSE                    # License information
+
 ```
 
 ---
