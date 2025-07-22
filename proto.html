@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Autism Support Games</title>
+  <style>
+    body {
+      background-color: #1a1a1a;
+      font-family: Arial, sans-serif;
+      color: white;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      background-color: #2c2c2c;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #000;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    input, button {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .game {
+      margin-top: 20px;
+    }
+
+    .game img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      border: 2px solid #fff;
+    }
+
+    .game button {
+      background-color: #2196F3;
+    }
+
+    .game button:hover {
+      background-color: #1976D2;
+    }
+
+    .welcome {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Screen -->
+  <div class="container" id="login-screen">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="login()">Login</button>
+  </div>
+
+  <!-- Home Screen -->
+  <div class="container hidden" id="home-screen">
+    <h2 class="welcome" id="welcome-message"></h2>
+
+    <div class="game">
+      <h3>🎨 Color Matching Game</h3>
+      <img src="color-game.jpg" alt="Color Matching Game">
+      <button onclick="alert('Launching Color Matching Game...')">Play</button>
+    </div>
+
+    <div class="game">
+      <h3>🔊 Sound Memory Game</h3>
+      <img src="sound-game.jpg" alt="Sound Memory Game">
+      <button onclick="alert('Launching Sound Memory Game...')">Play</button>
+    </div>
+  </div>
+
+  <script>
+    function login() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (username && password) {
+        document.getElementById("login-screen").classList.add("hidden");
+        document.getElementById("home-screen").classList.remove("hidden");
+        document.getElementById("welcome-message").textContent =
+          `Welcome, ${username}! Enjoy these fun and supportive games designed to help with focus and sensory development.`;
+      } else {
+        alert("Please enter both a username and password.");
+      }
+    }
+  </script>
+
+</body>
+</html>
