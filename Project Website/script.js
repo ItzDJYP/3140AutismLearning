@@ -38,4 +38,27 @@ function showGames() {
       document.getElementById("games-container").innerHTML =
         "<p style='color:red;'>Failed to load games. Please try again.</p>";
     });
-}
+  }
+
+  // Auto-login if user is stored in localStorage
+window.addEventListener("DOMContentLoaded", () => {
+  const username = localStorage.getItem("autismSupportUsername");
+  if (username) {
+    document.getElementById("login-screen").classList.add("hidden");
+    document.getElementById("home-screen").classList.remove("hidden");
+    document.getElementById("dashboard-message").textContent = 'Dashboard';
+    document.getElementById("welcome-message").textContent =
+      `Welcome, ${username}! Enjoy these fun and supportive games designed to help with focus and sensory development.`;
+
+    const profileSection = document.getElementById("profile-section");
+    if (profileSection) {
+      profileSection.classList.remove("hidden");
+      profileSection.classList.add("fade-in");
+      }
+    }
+  });
+// Logout function to clear user data
+  function logout() {
+  localStorage.removeItem("autismSupportUsername");
+  location.reload(); // return to login screen
+  }
