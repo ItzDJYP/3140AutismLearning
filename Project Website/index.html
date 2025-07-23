@@ -1,19 +1,35 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Autism Support Website</title>
+  <title>Autism Support Games</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="login-container">
+
+  <!-- Login Screen -->
+  <div class="container" id="login-screen">
     <h2>Login</h2>
-    <form onsubmit="return validateLogin()">
-      <input type="text" id="username" placeholder="Username" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <button type="submit">Login</button>
-      <p id="error-message"></p>
-    </form>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="login()">Login</button>
+  </div>
+
+  <!-- Home Screen -->
+  <div class="container hidden" id="home-screen">
+    <h2 class="welcome" id="welcome-message"></h2>
+
+    <div class="game">
+      <h3>🎨 Color Matching Game</h3>
+      <img src="color-game.jpg" alt="Color Matching Game">
+      <button onclick="alert('Launching Color Matching Game...')">Play</button>
+    </div>
+
+    <div class="game">
+      <h3>🔊 Sound Memory Game</h3>
+      <img src="sound-game.jpg" alt="Sound Memory Game">
+      <button onclick="alert('Launching Sound Memory Game...')">Play</button>
+    </div>
   </div>
 
   <script src="script.js"></script>

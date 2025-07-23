@@ -1,18 +1,13 @@
-function validateLogin() {
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
-  const errorMessage = document.getElementById("error-message");
+function login() {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-  // Example: hardcoded credentials
-  const validUsername = "admin";
-  const validPassword = "1234";
-
-  if (username === validUsername && password === validPassword) {
-    alert("Login successful!");
-    // Redirect or proceed
-    return true;
+  if (username && password) {
+    document.getElementById("login-screen").classList.add("hidden");
+    document.getElementById("home-screen").classList.remove("hidden");
+    document.getElementById("welcome-message").textContent =
+      `Welcome, ${username}! Enjoy these fun and supportive games designed to help with focus and sensory development.`;
   } else {
-    errorMessage.textContent = "Invalid username or password.";
-    return false;
+    alert("Please enter both a username and password.");
   }
 }
