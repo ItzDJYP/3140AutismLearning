@@ -14,7 +14,7 @@ function login() {
 
     // Optional: Load user-specific info (static for now)
     document.getElementById("user-info").innerHTML =
-      "Age: 10<br>Favorite Color: Blue<br>Likes: Music, Drawing";
+      "Age: 4<br>Favorite Color: Red<br>Likes: Writing, Drawing";
 
     // Profile picture stays as hardcoded for now
   } else {
