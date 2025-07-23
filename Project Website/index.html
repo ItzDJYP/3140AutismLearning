@@ -17,19 +17,20 @@
 
   <!-- Home Screen -->
   <div class="container hidden" id="home-screen">
+    <h1 class="dashboard" id="dashboard-message"></h1>
     <h2 class="welcome" id="welcome-message"></h2>
-
-    <div class="game">
-      <h3>🎨 Color Matching Game</h3>
-      <img src="color-game.jpg" alt="Color Matching Game">
-      <button onclick="alert('Launching Color Matching Game...')">Play</button>
+    <div class="profile">
+      <img id="profile-pic" src="Project Website/images/profilepicture.jpeg" alt="Profile Picture">
+      <p id="user-info">Age: 10<br>Favorite Color: Blue<br>Likes: Music, Drawing</p>
     </div>
 
-    <div class="game">
-      <h3>🔊 Sound Memory Game</h3>
-      <img src="sound-game.jpg" alt="Sound Memory Game">
-      <button onclick="alert('Launching Sound Memory Game...')">Play</button>
+    <div class="actions">
+      <button onclick="window.location.href='autism-info.html'">Learn About Autism</button>
+      <button onclick="window.location.href='progress.html'">Track My Progress</button>
+      <button onclick="showGames()">Play Games</button>
     </div>
+
+    <div id="games-container"></div>
   </div>
 
   <script src="script.js"></script>
