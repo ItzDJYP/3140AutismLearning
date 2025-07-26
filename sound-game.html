@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sound Memory Game</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h2>🔊 Sound Memory Game</h2>
+    <p>Repeat the sequence of sounds!</p>
+
+    <div class="sound-buttons">
+      <button id="red" onclick="handleUserInput('red')">Red</button>
+      <button id="blue" onclick="handleUserInput('blue')">Blue</button>
+      <button id="green" onclick="handleUserInput('green')">Green</button>
+      <button id="yellow" onclick="handleUserInput('yellow')">Yellow</button>
+    </div>
+
+    <p id="status">Press any button to start</p>
+    <button onclick="startGame()">Start Game</button>
+    <button onclick="window.location.href='index.html'">Back to Games</button>
+  </div>
+
+  <script src="js/sound-game.js"></script>
+</body>
+</html>
