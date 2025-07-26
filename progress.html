@@ -10,13 +10,25 @@
   <div class="container">
     <h2>My Progress</h2>
     <p>Here’s how you’ve been doing over time:</p>
-
     <canvas id="progressChart" width="400" height="200"></canvas>
-
+    <p>Games you've won:</p>
+    <ul id="reward-list"></ul>
     <button onclick="window.history.back()">Go Back</button>
   </div>
 
   <script>
+    const rewards = JSON.parse(localStorage.getItem("gameRewards") || "{}");
+  const list = document.getElementById("reward-list");
+
+  if (Object.keys(rewards).length === 0) {
+    list.innerHTML = "<li>No rewards yet. Play games to earn stars! ⭐</li>";
+  } else {
+    for (const [game, stars] of Object.entries(rewards)) {
+      const li = document.createElement("li");
+      li.textContent = `${game}: ⭐ ${stars} stars`;
+      list.appendChild(li);
+    }
+  }
     const ctx = document.getElementById('progressChart').getContext('2d');
     const progressChart = new Chart(ctx, {
       type: 'line',
