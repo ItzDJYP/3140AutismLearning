@@ -111,6 +111,27 @@ button:hover {
   transition: opacity 0.5s ease;
 }
 
+.sound-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.sound-buttons button {
+  padding: 30px;
+  font-size: 18px;
+  border-radius: 10px;
+  border: none;
+  background-color: #444;
+  color: white;
+  transition: opacity 0.3s;
+}
+
+.sound-buttons button:hover {
+  background-color: #666;
+}
+
 .fade-in {
   display: block !important;
   opacity: 1;
