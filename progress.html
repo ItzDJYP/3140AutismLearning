@@ -11,41 +11,76 @@
     <h2>My Progress</h2>
     <p>Here’s how you’ve been doing over time:</p>
     <canvas id="progressChart" width="400" height="200"></canvas>
+
     <p>Games you've won:</p>
     <ul id="reward-list"></ul>
+
     <button onclick="window.history.back()">Go Back</button>
   </div>
 
   <script>
+    // 1. Show total stars per game
     const rewards = JSON.parse(localStorage.getItem("gameRewards") || "{}");
-  const list = document.getElementById("reward-list");
+    const list = document.getElementById("reward-list");
 
-  if (Object.keys(rewards).length === 0) {
-    list.innerHTML = "<li>No rewards yet. Play games to earn stars! ⭐</li>";
-  } else {
-    for (const [game, stars] of Object.entries(rewards)) {
-      const li = document.createElement("li");
-      li.textContent = `${game}: ⭐ ${stars} stars`;
-      list.appendChild(li);
+    if (Object.keys(rewards).length === 0) {
+      list.innerHTML = "<li>No rewards yet. Play games to earn stars! ⭐</li>";
+    } else {
+      for (const [game, stars] of Object.entries(rewards)) {
+        const li = document.createElement("li");
+        li.textContent = `${game}: ⭐ ${stars} stars`;
+        list.appendChild(li);
+      }
     }
-  }
-    const ctx = document.getElementById('progressChart').getContext('2d');
-    const progressChart = new Chart(ctx, {
-      type: 'line',
+
+    // 2. Build chart from star history
+    const pastStars = {
+      "Monday": 3,
+      "Tuesday": 2,
+      "Wednesday": 4,
+      "Thursday": 1
+    };
+
+    const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+    let todayStars = 0;
+    for (const stars of Object.values(rewards)) {
+      todayStars += stars;
+    }
+
+    // 3. Track and persist star history
+    let starHistory = JSON.parse(localStorage.getItem("starHistory") || "{}");
+    starHistory[today] = todayStars;
+
+    for (const [day, stars] of Object.entries(pastStars)) {
+      if (!starHistory[day]) {
+        starHistory[day] = stars;
+      }
+    }
+
+    localStorage.setItem("starHistory", JSON.stringify(starHistory));
+
+    // 4. Prepare chart data
+    const labels = ["Monday", "Tuesday", "Wednesday", "Thursday", today];
+    const data = labels.map(day => starHistory[day] || 0);
+
+    const ctx = document.getElementById("progressChart").getContext("2d");
+    new Chart(ctx, {
+      type: "bar",
       data: {
-        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        labels: labels,
         datasets: [{
-          label: 'Focus Score',
-          data: [2, 4, 5, 6, 8], // Sample values, can be replaced dynamically
-          fill: false,
-          borderColor: 'rgb(75, 192, 192)',
-          tension: 0.1
+          label: "Stars Earned",
+          data: data,
+          backgroundColor: "#ffc107",
+          borderColor: "#ffa000",
+          borderWidth: 1
         }]
       },
       options: {
         scales: {
           y: {
             beginAtZero: true,
+            stepSize: 1,
             max: 10
           }
         }
