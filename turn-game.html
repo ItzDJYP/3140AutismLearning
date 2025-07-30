@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Turn Taking Game</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>My Turn, Your Turn</h2>
+      <p></p>
+
+      <div
+        id="color-box"
+        style="width: 200px; height: 200px; margin: 20px auto"
+      ></div>
+
+      <div id="options">
+        <!-- buttons added by JS -->
+      </div>
+
+      <p id="feedback"></p>
+
+      <button onclick="window.location.href='index.html'">Back to Games</button>
+    </div>
+
+    <style>
+      /* Basic styles for game UI */
+      #color-box {
+        background: #f0f0f0;
+        border: 2px solid #888;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: #333;
+      }
+      #timer {
+        font-size: 2rem;
+        color: #0077cc;
+        margin: 10px 0;
+        text-align: center;
+      }
+      #options button {
+        font-size: 1.5rem;
+        margin: 10px;
+        padding: 20px 40px;
+        border-radius: 12px;
+        border: 2px solid #0077cc;
+        background: #e0f7fa;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      #options button:hover {
+        background: #b2ebf2;
+      }
+      #feedback {
+        font-size: 1.3rem;
+        color: #388e3c;
+        min-height: 2em;
+        text-align: center;
+      }
+      #points {
+        font-size: 1.2rem;
+        color: #ff9800;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      #reward {
+        display: none;
+        text-align: center;
+        margin-top: 30px;
+      }
+      #reward img {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 10px;
+      }
+      #parent-panel {
+        margin-top: 30px;
+        padding: 15px;
+        border: 1px solid #bbb;
+        border-radius: 10px;
+        background: #fafafa;
+        display: none;
+      }
+      #parent-panel label {
+        display: block;
+        margin: 8px 0 2px 0;
+      }
+      #parent-panel input,
+      #parent-panel select {
+        margin-bottom: 8px;
+        width: 100%;
+        padding: 4px;
+      }
+      #parent-panel button {
+        margin-top: 8px;
+        font-size: 1rem;
+        padding: 6px 16px;
+      }
+      #show-parent {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 1rem;
+        background: #fffde7;
+        border: 1px solid #bbb;
+        border-radius: 6px;
+        padding: 4px 10px;
+        cursor: pointer;
+      }
+    </style>
+    <script>
+      // --- Game State Variables ---
+      let turn = 0; // 0 = partner's turn, 1 = kid's turn
+      let round = 0;
+      let points = 0;
+      let exchanges = 0;
+      let timerInterval = null;
+      let timerValue = 0;
+      let log = [];
+      // List of possible actions for variety
+      const ACTIONS = [
+        { label: "tap drum", emoji: "🥁" },
+        { label: "clap hands", emoji: "👏" },
+        { label: "wave", emoji: "👋" },
+        { label: "stomp feet", emoji: "🦶" },
+        { label: "ring bell", emoji: "🔔" },
+        { label: "snap fingers", emoji: "🤌" },
+        { label: "pat head", emoji: "🧑‍🦲" },
+        { label: "touch nose", emoji: "👃" },
+      ];
+      let currentAction = null;
+      let settings = {
+        roundsToReward: 3,
+      };
+
+      // --- DOM Elements ---
+      const colorBox = document.getElementById("color-box");
+      const optionsDiv = document.getElementById("options");
+      const feedbackP = document.getElementById("feedback");
+
+      // Add points and timer display
+      const pointsDiv = document.createElement("div");
+      pointsDiv.id = "points";
+      colorBox.parentNode.insertBefore(pointsDiv, colorBox);
+      const timerDiv = document.createElement("div");
+      timerDiv.id = "timer";
+      colorBox.parentNode.insertBefore(timerDiv, colorBox.nextSibling);
+
+      // Add reward screen
+      const rewardDiv = document.createElement("div");
+      rewardDiv.id = "reward";
+      rewardDiv.innerHTML = `
+        <img src="images/profilepicture.jpeg" alt="Sticker Reward" />
+        <div><strong>Sticker earned!</strong></div>
+        <button id="restart-btn">Play Again</button>
+      `;
+      document.querySelector(".container").appendChild(rewardDiv);
+
+      function updatePoints() {
+        pointsDiv.textContent = `Points: ${points}`;
+      }
+
+      function showFeedback(msg, color = "#388e3c") {
+        feedbackP.textContent = msg;
+        feedbackP.style.color = color;
+      }
+
+      function startTimer(seconds, onEnd) {
+        timerValue = seconds;
+        timerDiv.textContent = `⏳ ${timerValue}`;
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+          timerValue--;
+          timerDiv.textContent = timerValue > 0 ? `⏳ ${timerValue}` : "";
+          if (timerValue <= 0) {
+            clearInterval(timerInterval);
+            timerDiv.textContent = "";
+            if (onEnd) onEnd();
+          }
+        }, 1000);
+      }
+
+      function stopTimer() {
+        clearInterval(timerInterval);
+        timerDiv.textContent = "";
+      }
+
+      // --- Turn State Machine ---
+      function nextTurn() {
+        optionsDiv.innerHTML = "";
+        showFeedback("");
+        if (exchanges >= settings.roundsToReward) {
+          showReward();
+          return;
+        }
+        // Pick a new random action each round
+        if (turn === 0) {
+          // Partner's turn: pick action and prompt
+          currentAction = ACTIONS[Math.floor(Math.random() * ACTIONS.length)];
+          colorBox.textContent = "";
+          colorBox.style.background = "#f0f0f0";
+          showFeedback(`My turn: I ${currentAction.label}!`, "#1976d2");
+          setTimeout(() => {
+            turn = 1;
+            nextTurn();
+          }, 1200);
+        } else {
+          // Kid's turn: show options
+          colorBox.textContent = currentAction.emoji;
+          colorBox.style.background = "#ffe082";
+          showFeedback(
+            `Your turn: ${capitalizeFirst(currentAction.label)}!`,
+            "#d84315"
+          );
+          // Prepare valid and distractor actions
+          let valid = capitalizeFirst(currentAction.label);
+          let distractorAction;
+          do {
+            distractorAction =
+              ACTIONS[Math.floor(Math.random() * ACTIONS.length)];
+          } while (distractorAction.label === currentAction.label);
+          let distractor = capitalizeFirst(distractorAction.label);
+          let btns = [];
+          if (round < 2) {
+            btns = [valid];
+          } else {
+            btns =
+              Math.random() > 0.5 ? [valid, distractor] : [distractor, valid];
+          }
+          btns.forEach((label) => {
+            const btn = document.createElement("button");
+            btn.textContent = label;
+            btn.onclick = () => handleResponse(label === valid);
+            optionsDiv.appendChild(btn);
+          });
+          // Start visual timer for response
+          startTimer(5, () => handleResponse(false));
+        }
+      }
+
+      function capitalizeFirst(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+
+      // --- Handle Kid's Response ---
+      function handleResponse(correct) {
+        stopTimer();
+        optionsDiv.innerHTML = "";
+        if (correct) {
+          points++;
+          exchanges++;
+          showFeedback("Great listening! ⭐", "#388e3c");
+          updatePoints();
+          // Log exchange
+          log.push({
+            timestamp: new Date().toISOString(),
+            exchange: exchanges,
+          });
+          setTimeout(() => {
+            turn = 0;
+            round++;
+            nextTurn();
+          }, 1200);
+        } else {
+          showFeedback("Try again!", "#c62828");
+          setTimeout(() => {
+            nextTurn();
+          }, 1200);
+        }
+      }
+
+      // --- Reward Screen ---
+      function showReward() {
+        document.querySelector(".container").style.display = "none";
+        rewardDiv.style.display = "block";
+      }
+      function hideReward() {
+        // Always show the main game container and hide the reward screen
+        const container = document.querySelector(".container");
+        if (container) container.style.display = "block";
+        rewardDiv.style.display = "none";
+      }
+      rewardDiv.querySelector("#restart-btn").onclick = () => {
+        // Reset game state
+        turn = 0;
+        round = 0;
+        points = 0;
+        exchanges = 0;
+        updatePoints();
+        hideReward();
+        nextTurn();
+      };
+
+      // --- Initialize Game ---
+      updatePoints();
+      nextTurn();
+    </script>
+  </body>
+</html>
