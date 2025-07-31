@@ -9,11 +9,12 @@
 
   <!-- Login Screen -->
   <div class="container" id="login-screen">
-    <h2>Login</h2>
-    <input type="text" id="username" placeholder="Username" required>
-    <input type="password" id="password" placeholder="Password" required>
-    <button onclick="login()">Login</button>
-  </div>
+      <h2>Login</h2>
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button onclick="login()">Login</button>
+      <button onclick="window.location.href='sign-up.html'">Sign Up</button>
+</div>
 
   <!-- Home Screen -->
   <div class="container hidden" id="home-screen">
@@ -21,7 +22,7 @@
     <h2 class="welcome" id="welcome-message"></h2>
     <div class="profile">
       <img id="profile-pic" src="/images/profilepicture.jpeg" alt="Profile Picture">
-      <p id="user-info">Age: 4<br>Favorite Color: Red<br>Likes: Writing, Drawing</p>
+      <p id="user-info">Age: 4<br>Gender: Female<br>Likes: Writing, Drawing</p>
     </div>
 
     <div class="actions">
