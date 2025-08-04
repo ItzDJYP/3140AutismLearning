@@ -1,5 +1,5 @@
     const express = require('express');
-    const path = require('path'); // Node.js built-in module for path manipulation
+    const path = require('path'); // Import the necessary modules
     const app = express();
     const port = 3000;
 
