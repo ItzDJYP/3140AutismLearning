@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Progress</title>
+    <link rel="stylesheet" href="progress.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h2>My Progress</h2>
+      <p>Here’s how you’ve been doing over time:</p>
+
+      <canvas id="progressChart" width="400" height="200"></canvas>
+
+      <button onclick="window.history.back()">Go Back</button>
+    </div>
+
+    <script>
+      const ctx = document.getElementById("progressChart").getContext("2d");
+      const progressChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          datasets: [
+            {
+              label: "Focus Score",
+              data: [2, 4, 5, 6, 8], // Sample values, can be replaced dynamically
+              fill: false,
+              borderColor: "rgb(75, 192, 192)",
+              tension: 0.1,
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            legend: {
+              labels: {
+                color: "#fff",
+                font: {
+                  weight: "bold",
+                },
+              },
+            },
+          },
+          scales: {
+            x: {
+              ticks: {
+                color: "#fff",
+                font: {
+                  weight: "bold",
+                },
+              },
+            },
+            y: {
+              beginAtZero: true,
+              max: 10,
+              ticks: {
+                color: "#fff",
+                font: {
+                  weight: "bold",
+                },
+              },
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,4 +1,7 @@
 body {
+  background-image: url("images/blocks.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
   background-color: #1a1a1a;
   font-family: Arial, sans-serif;
   color: white;
@@ -12,15 +15,16 @@ body {
 
 .container {
   text-align: center;
-  background-color: #2c2c2c;
+  background: rgba(11, 65, 109, 0.95);
+  box-shadow: 0 8px 32px 0 rgba(25, 118, 210, 0.37);
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 0 10px #000;
   width: 90%;
   max-width: 600px;
 }
 
-input, button {
+input,
+button {
   width: 90%;
   padding: 10px;
   margin: 10px 0;
@@ -56,11 +60,11 @@ button:hover {
 }
 
 .game button {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 .game button:hover {
-  background-color: #1976D2;
+  background-color: #1976d2;
 }
 
 .welcome {
@@ -85,7 +89,8 @@ button:hover {
 
 .profile {
   margin: 20px 0;
-  background-color: #3a3a3a;
+  background-color: #007bff;
+  box-shadow: 0 8px 32px 0 rgba(25, 118, 210, 0.37);
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 0 5px #111;
@@ -96,13 +101,14 @@ button:hover {
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #fff;
+  border: 5px solid #fff;
   margin-bottom: 10px;
 }
 
 #user-info {
   font-size: 16px;
   line-height: 1.6;
+  font-weight: 600;
 }
 
 .hidden {
