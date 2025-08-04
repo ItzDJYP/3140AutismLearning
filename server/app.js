@@ -4,11 +4,11 @@
     const port = 3000;
 
     // Serve static files from the 'public' directory
-    app.use(express.static(path.join(__dirname)));
+    app.use(express.static(path.join(__dirname, '../client')));
 
     // Serve the index.html file for the root route
     app.get('/', (req, res) => {
-        res.sendFile(path.join(__dirname, 'index.html'));
+        res.sendFile(path.join(__dirname, '../client', 'index.html'));
     });
 
     // Start the server
