@@ -1,27 +1,57 @@
-function login() {
-  const username = document.getElementById("username").value.trim();
+// Login function with server validation
+async function login() {
+  const email = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
+  const errorMsg = document.getElementById("error-message");
 
-  if (username && password) {
-    localStorage.setItem("autismSupportUsername", username);
-
-    document.getElementById("login-screen").classList.add("hidden");
-    document.getElementById("home-screen").classList.remove("hidden");
-    document.getElementById("dashboard-message").textContent = 'Dashboard';
-    document.getElementById("welcome-message").textContent =
-      `Welcome, ${username}! Enjoy these fun and supportive games designed to help with focus and sensory development.`;
-    document.getElementById("profile-section").classList.remove("hidden");
-
-    // Optional: Load user-specific info (static for now)
-    document.getElementById("user-info").innerHTML =
-      "Age: 4<br>Favorite Color: Red<br>Likes: Writing, Drawing";
-
-    // Profile picture stays as hardcoded for now
-  } else {
+  if (!email || !password) {
     alert("Please enter both a username and password.");
+    return;
+  }
+
+  try {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      errorMsg.textContent = data.message || "Login failed. Try again.";
+      return;
+    }
+
+    // Login success — show home screen
+    showHomeScreen(data.user);
+  } catch (err) {
+    console.error("Login error:", err);
+    errorMsg.textContent = "Something went wrong. Please try again.";
   }
 }
 
+// Show home screen using user session data
+function showHomeScreen(user) {
+  document.getElementById("login-screen").classList.add("hidden");
+  document.getElementById("home-screen").classList.remove("hidden");
+
+  document.getElementById("dashboard-message").textContent = 'Dashboard';
+  document.getElementById("welcome-message").textContent =
+    `Welcome, ${user.parentName || user.email}! Enjoy these fun and supportive games designed to help with focus and sensory development.`;
+
+  const profileSection = document.getElementById("profile-section");
+  if (profileSection) {
+    profileSection.classList.remove("hidden");
+    profileSection.classList.add("fade-in");
+  }
+
+  // Populate sample user info
+  document.getElementById("user-info").innerHTML =
+    `Child: ${user.childName || "N/A"}<br>Email: ${user.email}<br>Signed up: ${new Date(user.createdAt).toLocaleDateString()}`;
+}
+
+// Show games (your code unchanged)
 function showGames() {
   fetch("games.html")
     .then(response => {
@@ -38,27 +68,24 @@ function showGames() {
       document.getElementById("games-container").innerHTML =
         "<p style='color:red;'>Failed to load games. Please try again.</p>";
     });
-  }
+}
 
-  // Auto-login if user is stored in localStorage
-window.addEventListener("DOMContentLoaded", () => {
-  const username = localStorage.getItem("autismSupportUsername");
-  if (username) {
-    document.getElementById("login-screen").classList.add("hidden");
-    document.getElementById("home-screen").classList.remove("hidden");
-    document.getElementById("dashboard-message").textContent = 'Dashboard';
-    document.getElementById("welcome-message").textContent =
-      `Welcome, ${username}! Enjoy these fun and supportive games designed to help with focus and sensory development.`;
+// Auto-login check on page load (check server session)
+window.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const res = await fetch("/api/me");
+    const data = await res.json();
 
-    const profileSection = document.getElementById("profile-section");
-    if (profileSection) {
-      profileSection.classList.remove("hidden");
-      profileSection.classList.add("fade-in");
-      }
+    if (data.user) {
+      showHomeScreen(data.user);
     }
-  });
-// Logout function to clear user data
-  function logout() {
-  localStorage.removeItem("autismSupportUsername");
-  location.reload(); // return to login screen
+  } catch (err) {
+    console.warn("Not logged in yet.");
   }
+});
+
+// Logout function using server session clear
+async function logout() {
+  await fetch("/api/logout", { method: "POST" });
+  location.reload(); // reset to login screen
+}
