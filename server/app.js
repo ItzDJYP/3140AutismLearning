@@ -15,7 +15,7 @@ const port = process.env.PORT || 3000;
 // --- Middleware ---
 app.use(express.json()); // parse JSON bodies
 
-// Serve static files from the client folder (unchanged from your version)
+// Serve static files from the client folder
 app.use(express.static(path.join(__dirname, '../client')));
 
 // --- Database connection ---
@@ -63,16 +63,19 @@ function requireAuth(req, res, next) {
 
 // --- API Routes ---
 
-// Sign up (Parent + Child)
+// Sign up (Parent + Child + Username)
 app.post('/api/signup', async (req, res) => {
   try {
-    const { parentName, childName, email, password } = req.body;
-    if (!parentName || !childName || !email || !password) {
+    const { parentName, childName, email, username, password } = req.body;
+    if (!parentName || !childName || !email || !username || !password) {
       return res.status(400).json({ message: 'Missing required fields' });
     }
 
-    const exists = await User.findOne({ email });
-    if (exists) return res.status(409).json({ message: 'Email already in use' });
+    const emailExists = await User.findOne({ email });
+    if (emailExists) return res.status(409).json({ message: 'Email already in use' });
+
+    const usernameExists = await User.findOne({ username });
+    if (usernameExists) return res.status(409).json({ message: 'Username already in use' });
 
     const hashed = await bcrypt.hash(password, 10);
 
@@ -80,11 +83,18 @@ app.post('/api/signup', async (req, res) => {
       parentName,
       childName,
       email,
+      username,
       password: hashed
     });
 
-    // Optionally auto-login after signup:
-    req.session.user = { id: user._id, parentName: user.parentName, childName: user.childName, email: user.email };
+    req.session.user = {
+      id: user._id,
+      parentName: user.parentName,
+      childName: user.childName,
+      email: user.email,
+      username: user.username,
+      createdAt: user.createdAt
+    };
 
     res.json({ message: 'Signup successful', user: req.session.user });
   } catch (err) {
@@ -93,18 +103,28 @@ app.post('/api/signup', async (req, res) => {
   }
 });
 
-// Login
+// Login (by username OR email)
 app.post('/api/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { usernameOrEmail, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({
+      $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }]
+    });
+
     if (!user) return res.status(401).json({ message: 'Invalid credentials' });
 
     const ok = await bcrypt.compare(password, user.password);
     if (!ok) return res.status(401).json({ message: 'Invalid credentials' });
 
-    req.session.user = { id: user._id, parentName: user.parentName, childName: user.childName, email: user.email };
+    req.session.user = {
+      id: user._id,
+      parentName: user.parentName,
+      childName: user.childName,
+      email: user.email,
+      username: user.username,
+      createdAt: user.createdAt
+    };
 
     res.json({ message: 'Login successful', user: req.session.user });
   } catch (err) {
@@ -131,7 +151,7 @@ app.post('/api/logout', (req, res) => {
   });
 });
 
-// --- Root route (unchanged from your version) ---
+// --- Root route ---
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client', 'index.html'));
 });

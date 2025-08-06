@@ -1,10 +1,10 @@
 // Login function with server validation
 async function login() {
-  const email = document.getElementById("username").value.trim();
+  const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
   const errorMsg = document.getElementById("error-message");
 
-  if (!email || !password) {
+  if (!username || !password) {
     alert("Please enter both a username and password.");
     return;
   }
@@ -13,7 +13,7 @@ async function login() {
     const res = await fetch("/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ username, password })
     });
 
     const data = await res.json();
@@ -37,19 +37,24 @@ function showHomeScreen(user) {
   document.getElementById("home-screen").classList.remove("hidden");
 
   document.getElementById("dashboard-message").textContent = 'Dashboard';
+
   document.getElementById("welcome-message").textContent =
-    `Welcome, ${user.parentName || user.email}! Enjoy these fun and supportive games designed to help with focus and sensory development.`;
+    `Welcome, ${user.parentName || user.username || "Guest"}! Enjoy these fun and supportive games designed to help with focus and sensory development.`;
 
-  const profileSection = document.getElementById("profile-section");
-  if (profileSection) {
-    profileSection.classList.remove("hidden");
-    profileSection.classList.add("fade-in");
-  }
-
-  // Populate sample user info
   document.getElementById("user-info").innerHTML =
-    `Child: ${user.childName || "N/A"}<br>Email: ${user.email}<br>Signed up: ${new Date(user.createdAt).toLocaleDateString()}`;
+    `Username: ${user.username || "N/A"}<br>
+     Parent: ${user.parentName || "N/A"}<br>
+     Child: ${user.childName || "N/A"}<br>
+     Email: ${user.email || "N/A"}<br>
+     Signed up: ${new Date(user.createdAt).toLocaleDateString()}`;
+
+  // Optional animation or styling if you want
+  const profileContainer = document.querySelector(".profile");
+  if (profileContainer) {
+    profileContainer.classList.add("fade-in");
+  }
 }
+
 
 // Show games (your code unchanged)
 function showGames() {
