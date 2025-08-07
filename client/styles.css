@@ -1,3 +1,27 @@
+.aladin-regular {
+  font-family: "Aladin", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.henny-penny-regular {
+  font-family: "Henny Penny", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kanit-regular {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kanit-medium {
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
 body {
   background-image: url("images/blocks.webp");
   background-repeat: no-repeat;
@@ -15,12 +39,29 @@ body {
 
 .container {
   text-align: center;
-  background: rgba(11, 65, 109, 0.95);
+  background: rgba(1, 101, 177, 0.836); /* semi-transparent*/
   box-shadow: 0 8px 32px 0 rgba(25, 118, 210, 0.37);
+  backdrop-filter: blur(10px); /* the glass blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* subtle glass edge */
   padding: 30px;
   border-radius: 10px;
   width: 90%;
   max-width: 600px;
+}
+
+.container h1 {
+  color: white;
+  font-family: "Henny Penny", system-ui;
+  font-size: 4.5rem;
+  margin-bottom: -1rem;
+}
+
+.container p {
+  color: white;
+  font-weight: 400;
+  font-family: "Kanit", sans-serif;
+  font-size: 1.2rem;
 }
 
 input,
@@ -33,18 +74,37 @@ button {
 }
 
 button {
-  background-color: #4caf50;
+  background-color: #053f6b;
+  width: 7rem;
+  padding: 1rem;
+  border-radius: 2rem;
+  margin-left: 2rem;
   color: white;
   font-weight: bold;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #064677;
 }
 
 .hidden {
   display: none;
+}
+
+h2 {
+  margin-top: 7rem;
+  font-family: "Henny Penny", system-ui;
+  font-size: 3rem;
+  margin-bottom: -1rem;
+}
+
+h3 {
+  margin-bottom: 2rem;
+  color: white;
+  font-weight: 400;
+  font-family: "Kanit", sans-serif;
+  font-size: 1.3rem;
 }
 
 .game {
