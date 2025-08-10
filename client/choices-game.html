@@ -1,22 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Social Choices Game</title>
-  <link rel="stylesheet" href="choices-game.css">
+  <!-- CSS sits in the same folder as this HTML -->
+  <link rel="stylesheet" href="./choices-game.css" />
 </head>
 <body>
-  <div class="game-container">
+  <div class="game-container" role="main" aria-live="polite">
     <h1>Social Choices Game 😊</h1>
+
     <div id="question-container">
       <p id="question">Loading...</p>
-      <div id="answer-buttons" class="btn-grid"></div>
+      <div id="answer-buttons" class="btn-grid" role="group" aria-label="Answer choices"></div>
     </div>
-    <button id="next-btn" class="next-btn">Next</button>
-    <p id="feedback" class="feedback"></p>
+
+    <button id="next-btn" class="next-btn" aria-disabled="true" disabled>Next</button>
+    <p id="feedback" class="feedback" aria-live="polite"></p>
+
+    <div id="diag" style="margin-top:12px;font-size:12px;color:#8b0000;"></div>
   </div>
 
-  <script src="./js/choices-game.js"></script>
+  <script>
+    // Show JS errors on page to help debugging
+    window.addEventListener('error', (e) => {
+      const d = document.getElementById('diag');
+      if (d) d.textContent = 'Script error: ' + (e.message || e.error?.toString() || 'unknown');
+    });
+  </script>
+
+  <!-- JS is in client/js -->
+  <script src="js/choices-game.js" defer></script>
 </body>
 </html>

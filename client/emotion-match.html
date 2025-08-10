@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Emotion Match-Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="emotion-match.css" />
+</head>
+<body>
+  <div class="wrap" role="main">
+    <header class="topbar">
+      <h1>Emotion Match-Up</h1>
+      <div class="controls">
+        <label>
+          <input type="checkbox" id="toggleText" />
+          Show text labels
+        </label>
+        <label>
+          <input type="checkbox" id="toggleFewer" />
+          Fewer choices
+        </label>
+        <button id="nextRoundBtn" class="secondary" aria-label="Next round">Next ▶</button>
+      </div>
+    </header>
+
+    <section class="hud">
+      <div>Score: <strong id="score">0</strong></div>
+      <div>Streak: <strong id="streak">0</strong></div>
+      <div id="unlocks" class="unlocks" aria-live="polite"></div>
+    </section>
+
+    <section class="board">
+      <figure class="prompt" aria-live="polite">
+        <div id="sceneTag" class="scene-tag" hidden></div>
+        <div id="face" class="face" aria-label="Emotion to match">😀</div>
+        <figcaption id="hint" class="hint" hidden></figcaption>
+      </figure>
+
+      <div class="targets">
+        <div class="target" id="dropzone" aria-label="Drop the correct emotion here" tabindex="0">
+          Drop here
+        </div>
+      </div>
+
+      <div class="choices" id="choices" role="listbox" aria-label="Emotion choices"></div>
+    </section>
+
+    <p id="feedback" class="feedback" aria-live="polite"></p>
+
+    <footer class="foot">
+      <button class="secondary" onclick="history.back()">Back</button>
+      <a class="secondary" href="index.html" role="button">Home</a>
+    </footer>
+  </div>
+
+  <script src="js/emotion-match.js" defer></script>
+</body>
+</html>

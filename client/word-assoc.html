@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Word & Picture Association</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="word-assoc.css" />
+</head>
+<body>
+  <div class="wrap" role="main">
+    <header class="topbar">
+      <h1>Word & Picture Association</h1>
+      <div class="controls">
+        <label><input type="checkbox" id="toggleText" /> Show text labels</label>
+        <label><input type="checkbox" id="toggleFewer" /> Fewer choices</label>
+        <label><input type="checkbox" id="toggleAdvanced" /> Advanced mode</label>
+        <button class="secondary" id="playWordBtn" title="Play word">🔊 Play</button>
+        <button class="secondary" id="nextBtn" title="Next item">Next ▶</button>
+      </div>
+    </header>
+
+    <section class="hud">
+      <div>Score: <strong id="score">0</strong></div>
+      <div>Set: <strong id="setProgress">1/1</strong></div>
+      <div>Unlocks: <strong id="unlocks"></strong></div>
+    </section>
+
+    <section class="board">
+      <!-- Prompt area -->
+      <div class="prompt">
+        <div class="theme" id="themeBadge" hidden>Farm</div>
+        <div class="word-audio">
+          <button class="primary big" id="sayBtn">🔊 Hear the word</button>
+          <div id="currentWordLabel" class="visually-hidden" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <!-- Sentence strip (advanced mode) -->
+      <div class="sentence-strip" id="sentenceStrip" aria-label="Sentence strip" hidden>
+        <div class="tile static">I</div>
+        <div class="tile static">want</div>
+        <div class="tile drop" id="dropSlot" tabindex="0" aria-label="Drop picture here">____</div>
+      </div>
+
+      <!-- Choices grid -->
+      <div class="choices" id="choices" role="listbox" aria-label="Picture choices"></div>
+    </section>
+
+    <p id="feedback" class="feedback" aria-live="polite"></p>
+
+    <footer class="foot">
+      <button class="secondary" onclick="history.back()">Back</button>
+      <a class="secondary" href="index.html" role="button">Home</a>
+    </footer>
+  </div>
+
+  <script src="js/word-assoc.js" defer></script>
+</body>
+</html>

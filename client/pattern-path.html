@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pattern Path</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="pattern-path.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="hud">
+      <div class="brand">
+        <span class="logo">⭐</span>
+        <h1>Pattern Path</h1>
+      </div>
+      <div class="stats">
+        <div class="stat">Stars: <strong id="stars">0</strong></div>
+        <div class="stat">Skin: <span id="skinName">Default</span></div>
+        <button id="settingsBtn" class="ghost" aria-expanded="false" aria-controls="settingsPanel">Settings ⚙️</button>
+      </div>
+    </header>
+
+    <aside id="settingsPanel" class="panel" hidden>
+      <h2>Settings</h2>
+      <label><input type="checkbox" id="speakToggle" /> Speak pattern aloud</label>
+      <label><input type="checkbox" id="reducedChoicesToggle" /> Reduce choices</label>
+      <label><input type="checkbox" id="bigUiToggle" /> Bigger buttons</label>
+      <hr />
+      <h3>Avatar Skin</h3>
+      <div id="skinPicker" class="skins"></div>
+      <button class="ghost small" id="closeSettings">Close</button>
+    </aside>
+
+    <main class="board">
+      <!-- Pattern bar -->
+      <section class="pattern">
+        <div class="type" id="patternType">Pattern</div>
+        <div class="sequence" id="patternRow" aria-label="Pattern"></div>
+        <div class="actions">
+          <button id="speakBtn" class="secondary">🔊 Speak</button>
+          <button id="nextBtn" class="secondary">Next ▶</button>
+        </div>
+      </section>
+
+      <!-- Path track with avatar -->
+      <section class="track" aria-label="Path">
+        <div class="tiles" id="tiles"></div>
+        <div class="avatar" id="avatar" role="img" aria-label="Player">🙂</div>
+      </section>
+
+      <!-- Choices -->
+      <section class="choices" id="choices" aria-label="Choices" role="listbox"></section>
+
+      <p id="feedback" class="feedback" aria-live="polite"></p>
+    </main>
+
+    <footer class="foot">
+      <button class="ghost" onclick="history.back()">Back</button>
+      <a class="ghost" href="index.html" role="button">Home</a>
+    </footer>
+  </div>
+
+  <script src="js/pattern-path.js" defer></script>
+</body>
+</html>
