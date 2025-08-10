@@ -1,3 +1,51 @@
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background: rgba(1, 101, 177, 0.836); /* semi-transparent*/
+  box-shadow: 0 8px 32px 0 rgba(25, 118, 210, 0.37);
+  backdrop-filter: blur(10px); /* the glass blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* subtle glass edge */
+  border-bottom: 1px solid #eee;
+  padding: 0.75rem 1rem;
+}
+.topnav a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+#Go-Back {
+  margin-left: auto;
+  margin-top: 0;
+  padding: 1rem;
+  font-size: 1.2rem;
+}
+.topnav .spacer {
+  height: 0.5rem;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+section {
+  padding: 1rem 0;
+}
+section + section {
+  border-top: 1px solid #f0f0f0;
+}
+
 .header-flex {
   display: flex;
   align-items: center;
@@ -24,14 +72,15 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .container {
-  background: rgba(11, 65, 109, 0.95);
+  background: rgba(1, 101, 177, 0.836); /* semi-transparent*/
   box-shadow: 0 8px 32px 0 rgba(25, 118, 210, 0.37);
+  backdrop-filter: blur(10px); /* the glass blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* subtle glass edge */
+  border-bottom: 1px solid #eee;
   border-radius: 16px;
   padding: 40px 30px;
   max-width: 700px;

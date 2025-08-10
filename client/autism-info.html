@@ -4,103 +4,195 @@
     <meta charset="UTF-8" />
     <title>About Autism</title>
     <link rel="stylesheet" href="autisminfo.css" />
+    <style>
+      /* Extra tweaks for tab functionality */
+      .panel[hidden] {
+        display: none;
+      }
+      .topnav a.active {
+        border-bottom: 2px solid #1976d2;
+      }
+    </style>
   </head>
   <body>
+    <!-- Top Navigation -->
+    <nav class="topnav" aria-label="Page sections">
+      <a href="#overview" data-target="overview" class="active">Overview</a>
+      <a href="#levels" data-target="levels">Levels</a>
+      <a href="#resources" data-target="resources">Resources</a>
+      <button id="Go-Back" onclick="window.history.back()">Go Back</button>
+    </nav>
+
+    <div class="spacer"></div>
+
     <div class="container">
       <div class="header-flex">
         <h2>Understanding Autism</h2>
-        <button onclick="window.history.back()">Go Back</button>
       </div>
-      <p>
-        Autism Spectrum Disorder (ASD) is a developmental condition that affects
-        how people communicate, interact, and experience the world. Every person
-        with autism is unique, and their abilities and challenges vary.
-      </p>
 
-      <h3>What is Autism Spectrum Disorder?</h3>
-      <p>
-        Autism Spectrum Disorder (ASD) is a complex neurodevelopmental condition
-        characterized by differences in social communication, behavior, and
-        sensory processing. People with autism may experience the world in
-        unique ways, and their strengths and challenges can vary widely.
-      </p>
+      <!-- Overview -->
+      <section id="overview" class="panel">
+        <h3>General Overview</h3>
+        <p>
+          Autism Spectrum Disorder (ASD) is a developmental condition that
+          affects how people communicate, interact, and experience the world.
+          Every person with autism is unique, and their abilities and challenges
+          vary.
+        </p>
 
-      <h3>Levels of Autism</h3>
-      <p>
-        ASD is categorized into three levels based on the amount of support an
-        individual needs. These levels help professionals tailor interventions
-        and support strategies:
-      </p>
-      <ol>
-        <li>
-          <strong>Level 1: Requiring Support</strong>
-          <ul>
-            <li>
-              May have difficulty initiating social interactions and responding
-              to social cues.
-            </li>
-            <li>
-              May struggle with organization and planning, which can impact
-              independence.
-            </li>
-            <li>Communication challenges may be noticeable but less severe.</li>
-          </ul>
-        </li>
-        <li>
-          <strong>Level 2: Requiring Substantial Support</strong>
-          <ul>
-            <li>
-              Marked deficits in verbal and nonverbal social communication
-              skills.
-            </li>
-            <li>
-              Social interactions are limited to narrow interests or specific
-              topics.
-            </li>
-            <li>
-              Repetitive behaviors and difficulty coping with change are more
-              apparent.
-            </li>
-          </ul>
-        </li>
-        <li>
-          <strong>Level 3: Requiring Very Substantial Support</strong>
-          <ul>
-            <li>Severe deficits in social communication and interaction.</li>
-            <li>
-              Very limited ability to engage in social activities or respond to
-              others.
-            </li>
-            <li>
-              Extreme difficulty coping with change; repetitive behaviors are
-              highly restrictive.
-            </li>
-          </ul>
-        </li>
-      </ol>
+        <h4>What is Autism Spectrum Disorder?</h4>
+        <p>
+          Autism Spectrum Disorder (ASD) is a complex neurodevelopmental
+          condition characterized by differences in social communication,
+          behavior, and sensory processing. People with autism may experience
+          the world in unique ways, and their strengths and challenges can vary
+          widely.
+        </p>
 
-      <h3>Types and Traits of Autism</h3>
-      <p>
-        Autism presents differently in each person. Some common traits include:
-      </p>
-      <ul>
-        <li>Challenges with social communication and interaction</li>
-        <li>Repetitive behaviors or routines</li>
-        <li>Sensory sensitivities (to sounds, lights, textures, etc.)</li>
-        <li>Strong interests in specific topics</li>
-        <li>Unique ways of learning and problem-solving</li>
-      </ul>
+        <h4>Types and Traits of Autism</h4>
+        <p>
+          Autism presents differently in each person. Some common traits
+          include:
+        </p>
+        <ul>
+          <li>Challenges with social communication and interaction</li>
+          <li>Repetitive behaviors or routines</li>
+          <li>Sensory sensitivities (to sounds, lights, textures, etc.)</li>
+          <li>Strong interests in specific topics</li>
+          <li>Unique ways of learning and problem-solving</li>
+        </ul>
 
-      <h3>How to Support Individuals with Autism</h3>
-      <ul>
-        <li>Be patient and understanding.</li>
-        <li>Use clear, simple language.</li>
-        <li>Encourage routine and structure.</li>
-        <li>Allow extra processing time.</li>
-        <li>Celebrate their strengths and interests.</li>
-        <li>Provide sensory-friendly environments when possible.</li>
-        <li>Respect their individuality and preferences.</li>
-      </ul>
+        <h4>How to Support Individuals with Autism</h4>
+        <ul>
+          <li>Be patient and understanding.</li>
+          <li>Use clear, simple language.</li>
+          <li>Encourage routine and structure.</li>
+          <li>Allow extra processing time.</li>
+          <li>Celebrate their strengths and interests.</li>
+          <li>Provide sensory-friendly environments when possible.</li>
+          <li>Respect their individuality and preferences.</li>
+        </ul>
+      </section>
+
+      <!-- Levels -->
+      <section id="levels" class="panel" hidden>
+        <h3>Levels of Autism</h3>
+        <p>
+          ASD is categorized into three levels based on the amount of support an
+          individual needs. These levels help professionals tailor interventions
+          and support strategies:
+        </p>
+        <ol>
+          <li>
+            <strong>Level 1: Requiring Support</strong>
+            <ul>
+              <li>
+                Difficulty initiating social interactions; misses social cues.
+              </li>
+              <li>
+                Organization/planning challenges that impact independence.
+              </li>
+              <li>Communication differences noticeable but less severe.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Level 2: Requiring Substantial Support</strong>
+            <ul>
+              <li>Marked differences in verbal and nonverbal communication.</li>
+              <li>
+                Interactions may be limited to narrow interests or topics.
+              </li>
+              <li>
+                More apparent repetitive behaviors and difficulty with change.
+              </li>
+            </ul>
+          </li>
+          <li>
+            <strong>Level 3: Requiring Very Substantial Support</strong>
+            <ul>
+              <li>
+                Severe differences in social communication and interaction.
+              </li>
+              <li>Very limited ability to engage or respond to others.</li>
+              <li>
+                Extreme difficulty with change; highly restrictive behaviors.
+              </li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Resources -->
+      <section id="resources" class="panel" hidden>
+        <h3>Resources to Learn More</h3>
+        <ul>
+          <li>
+            <a
+              href="https://www.cdc.gov/ncbddd/autism/index.html"
+              target="_blank"
+              rel="noopener"
+            >
+              CDC – Autism Spectrum Disorder (ASD)
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.nimh.nih.gov/health/topics/autism-spectrum-disorders-asd"
+              target="_blank"
+              rel="noopener"
+            >
+              NIMH – Autism Spectrum Disorders
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://autisticadvocacy.org/"
+              target="_blank"
+              rel="noopener"
+            >
+              Autistic Self Advocacy Network (ASAN)
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.autism-society.org/"
+              target="_blank"
+              rel="noopener"
+            >
+              Autism Society
+            </a>
+          </li>
+        </ul>
+      </section>
     </div>
+
+    <script>
+      // Simple tab behavior
+      const links = document.querySelectorAll(".topnav a[data-target]");
+      const panels = document.querySelectorAll(".panel");
+
+      function showPanel(id) {
+        panels.forEach((p) => (p.hidden = p.id !== id));
+        links.forEach((a) =>
+          a.classList.toggle("active", a.dataset.target === id)
+        );
+        history.replaceState(null, "", "#" + id);
+      }
+
+      links.forEach((a) => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          showPanel(a.dataset.target);
+        });
+      });
+
+      // Load correct panel from hash or default to overview
+      const initial = location.hash?.slice(1);
+      if (initial && document.getElementById(initial)) {
+        showPanel(initial);
+      } else {
+        showPanel("overview");
+      }
+    </script>
   </body>
 </html>
