@@ -3,70 +3,65 @@
   <head>
     <meta charset="UTF-8" />
     <title>Autism Support Games</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="styles.css" />
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Aladin&family=Henny+Penny&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Aladin&family=Henny+Penny&family=Kanit:wght@400;500&display=swap"
       rel="stylesheet"
     />
+
+    <noscript>
+      <style>
+        #login-screen, #home-screen { display: block !important; }
+      </style>
+    </noscript>
   </head>
   <body>
     <!-- Login Screen -->
-    <div class="container" id="login-screen">
+    <div class="container" id="login-screen" aria-live="polite">
       <h1>Welcome to Atlus</h1>
       <p class="description">
         Our platform allows children with autism aged 4 to 6 to practice crucial
-        social and emotional skills through engaging games
+        social and emotional skills through engaging games.
       </p>
+
       <input type="text" id="username" placeholder="Username" required />
       <input type="password" id="password" placeholder="Password" required />
-      <button onclick="login()">Login</button>
-      <button onclick="window.location.href='sign-up.html'">Sign Up</button>
+
+      <div class="login-actions">
+        <button onclick="login()">Login</button>
+        <button onclick="window.location.href='sign-up.html'">Sign Up</button>
+      </div>
+
+      <p id="error-message" class="error" role="status" aria-live="polite"></p>
     </div>
 
-
-    <!-- Home Screen -->
+    <!-- Home Screen (hidden until login) -->
     <div class="container hidden" id="home-screen">
-      <h2 class="dashboard" id="dashboard-message"></h2>
+      <h2 class="dashboard" id="dashboard-message">Dashboard</h2>
       <h3 class="welcome" id="welcome-message"></h3>
+
       <div class="profile">
-        <img
-          id="profile-pic"
-          src="./images/profilepicture.jpeg"
-          alt="Profile Picture"
-        />
+        <img id="profile-pic" src="./images/profilepicture.jpeg" alt="Profile Picture" />
         <p id="user-info">
           Age: 4<br />Gender: Female<br />Likes: Writing, Drawing
         </p>
       </div>
 
       <div class="actions">
-        <button onclick="window.location.href='autism-info.html'">
-          Learn About Autism
-        </button>
-        <button onclick="window.location.href='progress.html'">
-          Track My Progress
-        </button>
+        <button onclick="window.location.href='autism-info.html'">Learn About Autism</button>
+        <button onclick="window.location.href='progress.html'">Track My Progress</button>
         <button onclick="showGames()">Play Games</button>
         <button onclick="logout()">Logout</button>
       </div>
-      <div id="games-container"></div>
+
+      <div id="games-container" class="games"></div>
     </div>
-    <script src="./js/script.js"></script>
+
+    <script src="./js/script.js" defer></script>
   </body>
-
-    <div class="actions">
-      <button onclick="window.location.href='autism-info.html'">Learn About Autism</button>
-      <button onclick="window.location.href='progress.html'">Track My Progress</button>
-      <button onclick="showGames()">Play Games</button>
-      <button onclick="logout()">Logout</button>
-      <p id="error-message" style="color: red;"></p>
-    </div>
-    
-    <div id="games-container"></div>
-  </div>
-  <script src="./js/script.js"></script>
-</body>
-
 </html>
