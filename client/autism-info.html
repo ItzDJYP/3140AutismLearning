@@ -3,196 +3,637 @@
   <head>
     <meta charset="UTF-8" />
     <title>About Autism</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="autisminfo.css" />
-    <style>
-      /* Extra tweaks for tab functionality */
-      .panel[hidden] {
-        display: none;
-      }
-      .topnav a.active {
-        border-bottom: 2px solid #1976d2;
-      }
-    </style>
   </head>
   <body>
-    <!-- Top Navigation -->
-    <nav class="topnav" aria-label="Page sections">
-      <a href="#overview" data-target="overview" class="active">Overview</a>
-      <a href="#levels" data-target="levels">Levels</a>
-      <a href="#resources" data-target="resources">Resources</a>
-      <button id="Go-Back" onclick="window.history.back()">Go Back</button>
-    </nav>
+    <!-- Sticky, scrollable Bootstrap tab nav -->
+    <div
+      class="sticky-top"
+      style="
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        background: rgba(1, 101, 177, 0.836);
+        box-shadow: 0 8px 32px rgba(25, 118, 210, 0.37);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      "
+    >
+      <div class="container-lg py-2">
+        <div class="d-flex align-items-center gap-2">
+          <ul
+            class="nav nav-underline flex-nowrap overflow-auto"
+            id="autismTabs"
+            role="tablist"
+          >
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link active text-white"
+                id="overview-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#overview"
+                type="button"
+                role="tab"
+                aria-controls="overview"
+                aria-selected="true"
+              >
+                Overview
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link text-white"
+                id="levels-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#levels"
+                type="button"
+                role="tab"
+                aria-controls="levels"
+                aria-selected="false"
+              >
+                Levels
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link text-white"
+                id="signs-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#signs"
+                type="button"
+                role="tab"
+                aria-controls="signs"
+                aria-selected="false"
+              >
+                Signs &amp; Screening
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link text-white"
+                id="diagnosis-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#diagnosis"
+                type="button"
+                role="tab"
+                aria-controls="diagnosis"
+                aria-selected="false"
+              >
+                Diagnosis
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link text-white"
+                id="interventions-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#interventions"
+                type="button"
+                role="tab"
+                aria-controls="interventions"
+                aria-selected="false"
+              >
+                Interventions
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link text-white"
+                id="myths-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#myths"
+                type="button"
+                role="tab"
+                aria-controls="myths"
+                aria-selected="false"
+              >
+                Myths &amp; Facts
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link text-white"
+                id="forskids-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#forskids"
+                type="button"
+                role="tab"
+                aria-controls="forskids"
+                aria-selected="false"
+              >
+                For Kids
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link text-white"
+                id="resources-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#resources"
+                type="button"
+                role="tab"
+                aria-controls="resources"
+                aria-selected="false"
+              >
+                Resources
+              </button>
+            </li>
+          </ul>
 
-    <div class="spacer"></div>
-
-    <div class="container">
-      <div class="header-flex">
-        <h2>Understanding Autism</h2>
+          <button
+            class="btn btn-primary ms-auto"
+            id="Go-Back"
+            onclick="window.history.back()"
+          >
+            Go Back
+          </button>
+        </div>
       </div>
-
-      <!-- Overview -->
-      <section id="overview" class="panel">
-        <h3>General Overview</h3>
-        <p>
-          Autism Spectrum Disorder (ASD) is a developmental condition that
-          affects how people communicate, interact, and experience the world.
-          Every person with autism is unique, and their abilities and challenges
-          vary.
-        </p>
-
-        <h4>What is Autism Spectrum Disorder?</h4>
-        <p>
-          Autism Spectrum Disorder (ASD) is a complex neurodevelopmental
-          condition characterized by differences in social communication,
-          behavior, and sensory processing. People with autism may experience
-          the world in unique ways, and their strengths and challenges can vary
-          widely.
-        </p>
-
-        <h4>Types and Traits of Autism</h4>
-        <p>
-          Autism presents differently in each person. Some common traits
-          include:
-        </p>
-        <ul>
-          <li>Challenges with social communication and interaction</li>
-          <li>Repetitive behaviors or routines</li>
-          <li>Sensory sensitivities (to sounds, lights, textures, etc.)</li>
-          <li>Strong interests in specific topics</li>
-          <li>Unique ways of learning and problem-solving</li>
-        </ul>
-
-        <h4>How to Support Individuals with Autism</h4>
-        <ul>
-          <li>Be patient and understanding.</li>
-          <li>Use clear, simple language.</li>
-          <li>Encourage routine and structure.</li>
-          <li>Allow extra processing time.</li>
-          <li>Celebrate their strengths and interests.</li>
-          <li>Provide sensory-friendly environments when possible.</li>
-          <li>Respect their individuality and preferences.</li>
-        </ul>
-      </section>
-
-      <!-- Levels -->
-      <section id="levels" class="panel" hidden>
-        <h3>Levels of Autism</h3>
-        <p>
-          ASD is categorized into three levels based on the amount of support an
-          individual needs. These levels help professionals tailor interventions
-          and support strategies:
-        </p>
-        <ol>
-          <li>
-            <strong>Level 1: Requiring Support</strong>
-            <ul>
-              <li>
-                Difficulty initiating social interactions; misses social cues.
-              </li>
-              <li>
-                Organization/planning challenges that impact independence.
-              </li>
-              <li>Communication differences noticeable but less severe.</li>
-            </ul>
-          </li>
-          <li>
-            <strong>Level 2: Requiring Substantial Support</strong>
-            <ul>
-              <li>Marked differences in verbal and nonverbal communication.</li>
-              <li>
-                Interactions may be limited to narrow interests or topics.
-              </li>
-              <li>
-                More apparent repetitive behaviors and difficulty with change.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <strong>Level 3: Requiring Very Substantial Support</strong>
-            <ul>
-              <li>
-                Severe differences in social communication and interaction.
-              </li>
-              <li>Very limited ability to engage or respond to others.</li>
-              <li>
-                Extreme difficulty with change; highly restrictive behaviors.
-              </li>
-            </ul>
-          </li>
-        </ol>
-      </section>
-
-      <!-- Resources -->
-      <section id="resources" class="panel" hidden>
-        <h3>Resources to Learn More</h3>
-        <ul>
-          <li>
-            <a
-              href="https://www.cdc.gov/ncbddd/autism/index.html"
-              target="_blank"
-              rel="noopener"
-            >
-              CDC – Autism Spectrum Disorder (ASD)
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.nimh.nih.gov/health/topics/autism-spectrum-disorders-asd"
-              target="_blank"
-              rel="noopener"
-            >
-              NIMH – Autism Spectrum Disorders
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://autisticadvocacy.org/"
-              target="_blank"
-              rel="noopener"
-            >
-              Autistic Self Advocacy Network (ASAN)
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.autism-society.org/"
-              target="_blank"
-              rel="noopener"
-            >
-              Autism Society
-            </a>
-          </li>
-        </ul>
-      </section>
     </div>
 
+    <div class="container-lg my-3">
+      <div class="tab-content" id="autismTabsContent">
+        <!-- Overview -->
+        <section
+          class="tab-pane fade show active"
+          id="overview"
+          role="tabpanel"
+          aria-labelledby="overview-tab"
+          tabindex="0"
+        >
+          <div class="py-3">
+            <h2 class="mb-3">Understanding Autism</h2>
+            <h3>Overview</h3>
+            <p>
+              Autism Spectrum Disorder (ASD) is a lifelong neurodevelopmental
+              condition that affects how a child thinks, communicates, and
+              interacts with their world. It usually becomes noticeable in early
+              childhood. Children with autism process information, routines,
+              sensory input, and social cues in unique ways. While many enjoy
+              predictability or have focused interests, others may struggle with
+              communication or sensory experiences.
+            </p>
+            <p>
+              Today, approximately 1 in 31 children in the U.S. is diagnosed
+              with autism, and globally, about 1 in 100 children. These figures
+              reflect better awareness, enhanced screening, and broader
+              diagnostic standards—autism isn’t more common, but we’re better at
+              identifying it. Kids of all backgrounds and identities can be
+              autistic, and although diagnosed more often in boys, girls may be
+              under-identified.
+            </p>
+          </div>
+        </section>
+
+        <!-- Levels -->
+        <section
+          class="tab-pane fade"
+          id="levels"
+          role="tabpanel"
+          aria-labelledby="levels-tab"
+          tabindex="0"
+        >
+          <div class="py-3">
+            <h3>Levels of Support</h3>
+            <p>
+              When diagnosing autism, clinicians describe how much help a child
+              needs right now using three levels. These levels help guide the
+              type and amount of support each child receives, and they may
+              change over time.
+            </p>
+            <ul>
+              <li>
+                <strong>Level 1 (Requiring Support):</strong> Everyday
+                independence is possible with some help—for instance, with
+                social interactions, flexibility, or planning.
+              </li>
+              <li>
+                <strong>Level 2 (Requiring Substantial Support):</strong> More
+                noticeable challenges with communication and behavior; needs
+                consistent support across settings.
+              </li>
+              <li>
+                <strong>Level 3 (Requiring Very Substantial Support):</strong>
+                Significant daily challenges with communication, routines, and
+                behavior—intensive help is needed most of the day.
+              </li>
+            </ul>
+            <p>
+              This level system replaces older “high-functioning” or
+              “low-functioning” labels, which can be misleading. It emphasizes
+              each child’s current needs rather than generalizations.
+            </p>
+          </div>
+        </section>
+
+        <!-- Signs & Screening -->
+        <section
+          class="tab-pane fade"
+          id="signs"
+          role="tabpanel"
+          aria-labelledby="signs-tab"
+          tabindex="0"
+        >
+          <div class="py-3">
+            <h3>Signs &amp; Screening</h3>
+            <p>
+              Between ages 4–6, children’s social and communication skills
+              become more complex. Watching how your child plays and interacts
+              can reveal subtle signs of autism that may emerge in preschool
+              years.
+            </p>
+            <ul>
+              <li>
+                <strong>Social interaction:</strong> Prefers playing alone,
+                avoids imaginative or cooperative play, doesn’t respond when
+                name is called, limited eye contact, doesn’t share interest or
+                emotions with others (like showing toys or pointing things out).
+              </li>
+              <li>
+                <strong>Communication &amp; language:</strong> Has difficulty
+                forming sentences, uses repetitive phrases, reverses pronouns
+                (“you” instead of “I”), speaks in flat or singsong voice,
+                struggles with gestures or understanding jokes/sarcasm.
+              </li>
+              <li>
+                <strong>Anxiety around change or routines:</strong> Becomes
+                upset at minor changes (like a different snack), insists on
+                sameness, shows distress over small transitions.
+              </li>
+              <li>
+                <strong>Repetitive behaviors or narrow interests:</strong> Lines
+                up toys or objects in exact order, repeats certain actions,
+                intensely focused on specific topics.
+              </li>
+              <li>
+                <strong>Sensory differences:</strong> Reacts strongly to sounds,
+                textures, or lights—may cover ears, dislike wearing certain
+                clothes, or avoid messy play.
+              </li>
+            </ul>
+
+            <h4>Red Flags in Everyday Milestones</h4>
+            <ul>
+              <li>
+                Still not using sentences consistently, or using very few words
+                by age 4.
+              </li>
+              <li>
+                Rarely plays pretend—like pretending to cook, talk on toy
+                phones, or acting out stories.
+              </li>
+              <li>
+                Doesn’t seek comfort from familiar adults—or seems “tuned out”
+                of social interactions.
+              </li>
+            </ul>
+
+            <h4>Screening Tools for Ages 4–6</h4>
+            <p>
+              For preschoolers and early school-age children, tools like the
+              <strong>CAST (Childhood Autism Spectrum Test)</strong> and the
+              <strong>SCQ (Social Communication Questionnaire)</strong> help
+              identify communication and social patterns typical in this age
+              group.
+            </p>
+            <ul>
+              <li>
+                The CAST is a parent-completed questionnaire for kids aged 4–11.
+                It measures social, communication, play, and repetitive
+                behaviors in about 5–10 minutes. A higher score may indicate the
+                need for a full evaluation.
+              </li>
+              <li>
+                The SCQ is another parent-based tool for ages 4 and older,
+                focusing on recent behaviors and communication skills.
+              </li>
+            </ul>
+
+            <p>
+              Trust your instincts—if you notice these signs, bring them up at
+              your child’s next pediatric visit. Early screening and evaluation
+              can lead to better-tailored support and brighter outcomes.
+            </p>
+          </div>
+        </section>
+
+        <!-- Diagnosis -->
+        <section
+          class="tab-pane fade"
+          id="diagnosis"
+          role="tabpanel"
+          aria-labelledby="diagnosis-tab"
+          tabindex="0"
+        >
+          <div class="py-3">
+            <h3>Diagnosis</h3>
+            <p>
+              When autism isn't caught early, it often becomes clearer during
+              preschool years. Around ages 4–6, parents and teachers may notice
+              ongoing differences in how a child interacts with others, plays,
+              speaks, or adapts to change.
+            </p>
+            <p>
+              A formal diagnosis involves a team of trusted professionals—like
+              developmental pediatricians, child psychologists, speech-language
+              therapists, and sometimes occupational therapists. The evaluation
+              is a careful process, using multiple tools and observations to
+              understand your child's unique strengths and challenges.
+            </p>
+
+            <h4>What to Expect During Evaluation</h4>
+            <ul>
+              <li>
+                <strong>Caregiver interview:</strong> You may be asked about
+                your child’s development milestones, language and play history,
+                behaviors, and how they handle daily routines or changes.
+              </li>
+              <li>
+                <strong>Direct observation:</strong> Clinicians often use
+                structured tools like the ADOS-2, where they play with your
+                child and look for signs of social communication differences,
+                imaginative play, and repetitive behaviors.
+              </li>
+              <li>
+                <strong>Rating scales:</strong> Tools like CARS (Childhood
+                Autism Rating Scale) help professionals rate behavior on traits
+                like emotional response, adaptation to change, and
+                communication.
+              </li>
+              <li>
+                <strong>Screening tools review:</strong> Questionnaires like the
+                CAST or SCQ—completed by you—provide snapshots of social,
+                communication, and imaginative play behaviors typical at this
+                age.
+              </li>
+              <li>
+                <strong>Developmental testing:</strong> Your child may be
+                evaluated for language, thinking, and daily living skills to
+                understand cognitive strengths and areas needing support.
+              </li>
+              <li>
+                <strong>Medical checks as needed:</strong> Often includes
+                hearing tests, and in some cases, genetic testing to identify
+                any underlying genetic conditions.
+              </li>
+            </ul>
+
+            <h4>Why a Thorough Evaluation Matters</h4>
+            <p>
+              Accurate diagnosis by a skilled team ensures the support matches
+              your child’s unique needs—whether that’s school planning, daily
+              routines at home, or therapies that promote social and language
+              skills. Many children receive a reliable diagnosis around ages 4–5
+              when signs become clearer, so it’s perfectly valid to seek
+              evaluation even if earlier screenings were inconclusive.
+            </p>
+          </div>
+        </section>
+
+        <!-- Interventions -->
+        <section
+          class="tab-pane fade"
+          id="interventions"
+          role="tabpanel"
+          aria-labelledby="interventions-tab"
+          tabindex="0"
+        >
+          <div class="py-3">
+            <h3>Interventions</h3>
+            <p>
+              Early help matters. Research shows that intervention begun in
+              early childhood—including behavioral, speech, and occupational
+              therapies—can significantly improve communication, social skills,
+              and daily routines.
+            </p>
+            <ul>
+              <li>
+                <strong>Behavioral Therapy:</strong> Supports positive behaviors
+                and social skills through structured and play-based methods.
+              </li>
+              <li>
+                <strong>Speech-Language Therapy:</strong> Helps children
+                communicate—whether by words, gestures, or picture-based
+                systems.
+              </li>
+              <li>
+                <strong>Occupational Therapy:</strong> Supports sensory
+                regulation, motor skills, self-care, and daily routines.
+              </li>
+              <li>
+                <strong>Early Intervention Programs:</strong> Collaborative
+                services that support both child and family, ideally beginning
+                in toddler years.
+              </li>
+            </ul>
+            <p>
+              Every child is unique—so therapies should be individualized,
+              respectful, and empowering, aiming to help children learn,
+              participate, and build independence at home, school, and beyond.
+            </p>
+          </div>
+        </section>
+
+        <!-- Myths & Facts -->
+        <section
+          class="tab-pane fade"
+          id="myths"
+          role="tabpanel"
+          aria-labelledby="myths-tab"
+          tabindex="0"
+        >
+          <div class="py-3">
+            <h3>Myths &amp; Facts</h3>
+            <ol>
+              <li>
+                <strong>Myth:</strong> Vaccines cause autism. <br /><strong
+                  >Fact:</strong
+                >
+                Multiple large, peer-reviewed studies—across different countries
+                and involving millions of children—have found no connection
+                between vaccines (including the MMR vaccine and those with
+                thimerosal) and autism. The original study that claimed a link
+                was found to be fraudulent and was retracted.
+              </li>
+              <li>
+                <strong>Myth:</strong> Autism is a mental illness or a disease.
+                <br /><strong>Fact:</strong> Autism is a neurodevelopmental
+                difference—it’s part of how a child’s brain works, not a disease
+                to be cured.
+              </li>
+              <li>
+                <strong>Myth:</strong> All autistic children are the same or
+                have special talents like being geniuses. <br /><strong
+                  >Fact:</strong
+                >
+                Autism is a wide spectrum. Some children may have intense
+                interests or excel in certain areas, but others may struggle
+                with language or social skills. Every child’s profile is unique.
+              </li>
+              <li>
+                <strong>Myth:</strong> Only boys are autistic. <br /><strong
+                  >Fact:</strong
+                >
+                Autistic individuals include all genders. Girls, in particular,
+                may “mask” their differences and are often diagnosed later than
+                boys.
+              </li>
+              <li>
+                <strong>Myth:</strong> Autism can be cured. <br /><strong
+                  >Fact:</strong
+                >
+                Autism is lifelong and not something to cure. However, early
+                supports—like therapies focused on communication, play, and
+                daily living skills—can help children thrive.
+              </li>
+              <li>
+                <strong>Myth:</strong> Autistic children don’t want friends or
+                emotional connection. <br /><strong>Fact:</strong>
+                Many autistic children want friendships, but they may interact
+                or show emotions differently—through routines, play, or their
+                own way of expressing feeling.
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- For Kids -->
+        <section
+          class="tab-pane fade"
+          id="forskids"
+          role="tabpanel"
+          aria-labelledby="forskids-tab"
+          tabindex="0"
+        >
+          <div class="py-3">
+            <h3>What Is Autism? (For Kids)</h3>
+            <p>
+              Autism means your brain works in a special way that makes you,
+              you! Here’s what that can mean:
+            </p>
+            <ul>
+              <li>
+                Some sounds, lights, or textures might feel extra strong or
+                different—and that’s okay.
+              </li>
+              <li>
+                You might love the same routine, like playing the same game or
+                line of toys. That’s your special interest!
+              </li>
+              <li>
+                You might talk, move, or play in ways that are different—and
+                that makes you unique.
+              </li>
+            </ul>
+            <p>
+              Being autistic means seeing the world differently—and that’s one
+              of the many wonderful ways there are to be.
+            </p>
+          </div>
+        </section>
+
+        <!-- Resources -->
+        <section
+          class="tab-pane fade"
+          id="resources"
+          role="tabpanel"
+          aria-labelledby="resources-tab"
+          tabindex="0"
+        >
+          <div class="py-3">
+            <h3>Resources to Learn More</h3>
+            <ul>
+              <li>
+                <a
+                  href="https://www.cdc.gov/autism/data-research/index.html"
+                  target="_blank"
+                  rel="noopener"
+                  >CDC – Data &amp; Statistics (Prevalence)</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.cdc.gov/autism/hcp/diagnosis/screening.html"
+                  target="_blank"
+                  rel="noopener"
+                  >CDC – Screening Guidelines at 18 &amp; 24 Months</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.mchatscreen.com/"
+                  target="_blank"
+                  rel="noopener"
+                  >M-CHAT®-R/F – Autism Screening Tool</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.who.int/news-room/fact-sheets/detail/autism-spectrum-disorders"
+                  target="_blank"
+                  rel="noopener"
+                  >WHO – Global Autism Facts</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://sesameworkshop.org/our-work/what-we-do/autism-initiative/"
+                  target="_blank"
+                  rel="noopener"
+                  >Sesame Workshop – Autism Initiative &amp; Julia Resources</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.nimh.nih.gov/health/topics/autism-spectrum-disorders-asd"
+                  target="_blank"
+                  rel="noopener"
+                  >NIMH – Autism Spectrum Disorder Information</a
+                >
+              </li>
+            </ul>
+            <p>
+              <em>Note:</em> This page is for educational purposes only. For
+              personal guidance, please consult a qualified clinician.
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS (tabs require JavaScript) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Sync URL hash with active tab + restore on load -->
     <script>
-      // Simple tab behavior
-      const links = document.querySelectorAll(".topnav a[data-target]");
-      const panels = document.querySelectorAll(".panel");
-
-      function showPanel(id) {
-        panels.forEach((p) => (p.hidden = p.id !== id));
-        links.forEach((a) =>
-          a.classList.toggle("active", a.dataset.target === id)
-        );
-        history.replaceState(null, "", "#" + id);
-      }
-
-      links.forEach((a) => {
-        a.addEventListener("click", (e) => {
-          e.preventDefault();
-          showPanel(a.dataset.target);
+      // When a tab is shown, push its id to the URL hash
+      const tabElList = document.querySelectorAll(
+        '#autismTabs [data-bs-toggle="tab"]'
+      );
+      tabElList.forEach((tabEl) => {
+        tabEl.addEventListener("shown.bs.tab", (event) => {
+          const targetId = event.target.getAttribute("data-bs-target");
+          if (targetId) history.replaceState(null, "", targetId);
         });
       });
 
-      // Load correct panel from hash or default to overview
-      const initial = location.hash?.slice(1);
-      if (initial && document.getElementById(initial)) {
-        showPanel(initial);
-      } else {
-        showPanel("overview");
-      }
+      // On load: if URL hash matches a tab-pane, activate that tab
+      window.addEventListener("DOMContentLoaded", () => {
+        const hash = window.location.hash;
+        if (hash) {
+          const trigger = document.querySelector(
+            `#autismTabs [data-bs-target="${hash}"]`
+          );
+          if (trigger) {
+            const tab = new bootstrap.Tab(trigger);
+            tab.show();
+          }
+        }
+      });
     </script>
   </body>
 </html>

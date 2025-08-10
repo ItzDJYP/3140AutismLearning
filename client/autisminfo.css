@@ -1,86 +1,27 @@
-.topnav {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  background: rgba(1, 101, 177, 0.836); /* semi-transparent*/
-  box-shadow: 0 8px 32px 0 rgba(25, 118, 210, 0.37);
-  backdrop-filter: blur(10px); /* the glass blur effect */
-  -webkit-backdrop-filter: blur(10px); /* Safari support */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* subtle glass edge */
-  border-bottom: 1px solid #eee;
-  padding: 0.75rem 1rem;
-}
-.topnav a {
-  text-decoration: none;
-  color: #ffffff;
-  font-size: 1.5rem;
-  font-weight: 600;
+:root {
+  --panel-bg: rgba(1, 101, 177, 0.836);
+  --panel-shadow: 0 8px 32px 0 rgba(25, 118, 210, 0.37);
+  --panel-border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-#Go-Back {
-  margin-left: auto;
-  margin-top: 0;
-  padding: 1rem;
-  font-size: 1.2rem;
-}
-.topnav .spacer {
-  height: 0.5rem;
-}
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 1rem;
-}
-.header-flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-section {
-  padding: 1rem 0;
-}
-section + section {
-  border-top: 1px solid #f0f0f0;
-}
-
-.header-flex {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 18px;
-}
-
-.header-flex h2 {
-  margin-bottom: 0;
-}
-
-.header-flex button {
-  margin-left: 18px;
-  margin-bottom: 0;
-  padding: 10px 22px;
-  font-size: 1em;
-}
 body {
   background-image: url("images/blocks.webp");
   background-repeat: no-repeat;
   background-size: cover;
-  font-family: "Segoe UI", Arial, sans-serif;
-  color: #fff;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
+  font-size: 1.2rem;
+  line-height: 2;
+}
+
+.nav-item {
+  padding: 1rem;
 }
 
 .container {
-  background: rgba(1, 101, 177, 0.836); /* semi-transparent*/
-  box-shadow: 0 8px 32px 0 rgba(25, 118, 210, 0.37);
-  backdrop-filter: blur(10px); /* the glass blur effect */
-  -webkit-backdrop-filter: blur(10px); /* Safari support */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* subtle glass edge */
-  border-bottom: 1px solid #eee;
+  background: var(--panel-bg);
+  box-shadow: var(--panel-shadow);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: var(--panel-border);
   border-radius: 16px;
   padding: 40px 30px;
   max-width: 700px;
@@ -89,75 +30,43 @@ body {
   margin: 30px auto;
 }
 
-h2,
-h3 {
+.container-sm .tab-content,
+.container-md .tab-content,
+.container-lg .tab-content,
+.container-xl .tab-content,
+.container-xxl .tab-content {
+  display: block; /* ensure block-level element */
+  width: min(95%, 700px); /* fluid but capped */
+  margin-inline: auto; /* centers LTR & RTL */
+  margin-block: 30px; /* top/bottom spacing */
+  background: var(--panel-bg);
+  box-shadow: var(--panel-shadow);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: var(--panel-border);
+  border-radius: 16px;
+  padding: 40px 30px;
+  max-width: 700px;
+}
+
+.tab-pane {
   color: #fff;
-  margin-top: 0;
-  margin-bottom: 18px;
-  font-weight: 700;
-  letter-spacing: 1px;
 }
 
-h2 {
-  font-size: 2.2em;
-  border-bottom: 2px solid #ffffff;
-  padding-bottom: 8px;
-}
-
-h3 {
-  font-size: 1.4em;
+/* Keep resource links readable on glass background */
+#resources a {
   color: #ffffff;
+  text-decoration: underline;
 }
 
-p,
-ul,
-ol {
-  color: #ffffff;
-  font-size: 1.08em;
-  line-height: 1.7;
-}
-
-ul,
-ol {
-  margin-left: 20px;
-  margin-bottom: 18px;
-}
-
-li {
-  margin-bottom: 8px;
-}
-
-ol > li > strong {
-  color: #ffffff;
-}
-
-button {
-  background: #1976d2;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 28px;
-  font-size: 1.1em;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 20px;
-  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2);
-  transition: background 0.3s;
-}
-
-button:hover {
-  background: #0d47a1;
-}
-
+/* Mobile padding*/
 @media (max-width: 600px) {
-  .container {
+  .container-sm .tab-content,
+  .container-md .tab-content,
+  .container-lg .tab-content,
+  .container-xl .tab-content,
+  .container-xxl .tab-content {
     padding: 18px 8px;
     max-width: 98vw;
-  }
-  h2 {
-    font-size: 1.3em;
-  }
-  h3 {
-    font-size: 1em;
   }
 }
