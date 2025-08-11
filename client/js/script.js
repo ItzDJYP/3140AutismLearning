@@ -13,7 +13,7 @@ async function login() {
     const res = await fetch("/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ username, password }),
     });
 
     const data = await res.json();
@@ -36,13 +36,15 @@ function showHomeScreen(user) {
   document.getElementById("login-screen").classList.add("hidden");
   document.getElementById("home-screen").classList.remove("hidden");
 
-  document.getElementById("dashboard-message").textContent = 'Dashboard';
+  document.getElementById("dashboard-message").textContent = "Dashboard";
 
-  document.getElementById("welcome-message").textContent =
-    `Welcome, ${user.parentName || user.username || "Guest"}! Enjoy these fun and supportive games designed to help with focus and sensory development.`;
+  document.getElementById("welcome-message").textContent = `Welcome, ${
+    user.parentName || user.username || "Guest"
+  }! Enjoy these fun and supportive games designed to help with focus and sensory development.`;
 
-  document.getElementById("user-info").innerHTML =
-    `Username: ${user.username || "N/A"}<br>
+  document.getElementById("user-info").innerHTML = `Username: ${
+    user.username || "N/A"
+  }<br>
      Parent: ${user.parentName || "N/A"}<br>
      Child: ${user.childName || "N/A"}<br>
      Email: ${user.email || "N/A"}<br>
@@ -55,20 +57,19 @@ function showHomeScreen(user) {
   }
 }
 
-
 // Show games (your code unchanged)
 function showGames() {
   fetch("games.html")
-    .then(response => {
+    .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not OK");
       }
       return response.text();
     })
-    .then(data => {
+    .then((data) => {
       document.getElementById("games-container").innerHTML = data;
     })
-    .catch(error => {
+    .catch((error) => {
       console.error("Error loading games:", error);
       document.getElementById("games-container").innerHTML =
         "<p style='color:red;'>Failed to load games. Please try again.</p>";

@@ -1,55 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Sign Up Page</title>
-  <link rel="stylesheet" href="sign-up.css">
-</head>
-<body>
-  <h1>Sign Up for Kids' Activities</h1>
-  <p>Welcome! Please fill out the form below to sign up your child for our activities.</p>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sign Up Page</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Aladin&family=Henny+Penny&family=Kanit:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="sign-up.css" />
+  </head>
+  <body>
+    <div class="container" id="signup-container">
+      <h1>Sign Up for Atlus</h1>
+      <p>
+        Sign Up your child now so they can start making progress towards their
+        social and emotional skills.
+      </p>
+      <form id="signup-form">
+        <input
+          type="text"
+          name="parentName"
+          placeholder="Parent Name"
+          required
+        /><br />
+        <input
+          type="text"
+          name="childName"
+          placeholder="Child Name"
+          required
+        /><br />
+        <input type="email" name="email" placeholder="Email" required /><br />
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          required
+        /><br />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        /><br />
+        <button type="submit" id="signup-button">Sign Up</button>
+      </form>
+      <p class="login-message">
+        Already have an account?
+        <a class="login-link" href="index.html">Login here</a>
+      </p>
+    </div>
 
-  <form id="signup-form">
-    <input type="text" name="parentName" placeholder="Parent Name" required><br>
-    <input type="text" name="childName" placeholder="Child Name" required><br>
-    <input type="email" name="email" placeholder="Email" required><br>
-    <input type="text" name="username" placeholder="Username" required><br>
-    <input type="password" name="password" placeholder="Password" required><br>
-    <button type="submit">Sign Up</button>
-  </form>
+    <script>
+      document
+        .getElementById("signup-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const data = {
+            parentName: form.parentName.value.trim(),
+            childName: form.childName.value.trim(),
+            email: form.email.value.trim(),
+            username: form.username.value.trim(),
+            password: form.password.value.trim(),
+          };
 
-  <p>Already have an account? <a href="index.html">Login here</a></p>
+          try {
+            const res = await fetch("/api/signup", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            });
 
-  <script>
-    document.getElementById('signup-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const data = {
-        parentName: form.parentName.value.trim(),
-        childName: form.childName.value.trim(),
-        email: form.email.value.trim(),
-        username: form.username.value.trim(),
-        password: form.password.value.trim()
-      };
-
-      try {
-        const res = await fetch('/api/signup', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
+            const result = await res.json();
+            alert(result.message);
+            if (res.ok) {
+              // Redirect back to login page
+              window.location.href = "index.html";
+            }
+          } catch (err) {
+            console.error("Signup error:", err);
+            alert("Something went wrong during signup.");
+          }
         });
-
-        const result = await res.json();
-        alert(result.message);
-        if (res.ok) {
-          // Redirect back to login page
-          window.location.href = 'index.html';
-        }
-      } catch (err) {
-        console.error('Signup error:', err);
-        alert('Something went wrong during signup.');
-      }
-    });
-  </script>
-</body>
+    </script>
+  </body>
 </html>

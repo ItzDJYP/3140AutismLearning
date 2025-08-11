@@ -1,7 +1,40 @@
+.aladin-regular {
+  font-family: "Aladin", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.henny-penny-regular {
+  font-family: "Henny Penny", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kanit-regular {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kanit-medium {
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
 :root {
   --panel-bg: rgba(1, 101, 177, 0.836);
   --panel-shadow: 0 8px 32px 0 rgba(25, 118, 210, 0.37);
   --panel-border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav {
+  font-family: "Kanit", sans-serif;
+}
+
+#Go-Back {
+  font-family: "Kanit", sans-serif;
+  font-size: 1.2rem;
 }
 
 body {
@@ -14,6 +47,23 @@ body {
 
 .nav-item {
   padding: 1rem;
+}
+
+h2 {
+  text-align: center;
+  text-decoration: underline;
+  font-size: 2.8rem;
+  font-family: "Henny Penny", system-ui;
+  margin-bottom: 2rem;
+}
+
+h3 {
+  font-size: 3rem;
+  font-family: "Aladin", system-ui;
+}
+
+p {
+  font-family: "Kanit", sans-serif;
 }
 
 .container {

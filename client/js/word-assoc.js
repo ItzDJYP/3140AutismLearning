@@ -1,23 +1,73 @@
 // --- Data -----------------------------------------------------------
-// You can replace emoji or placeholders with actual AAC/PECS icons later.
-// For each item: key, label, img (path under client/images), and optional tts override.
+// Base nouns (your original set)
 const WORDS = [
-  { key: "juice", label: "juice",   img: "images/juice.png",   tts: "juice" },
-  { key: "apple", label: "apple",   img: "images/apple.png",   tts: "apple" },
-  { key: "ball",  label: "ball",    img: "images/ball.png",    tts: "ball" },
-  { key: "dog",   label: "dog",     img: "images/dog.png",     tts: "dog"  },
-  { key: "car",   label: "car",     img: "images/car.png",     tts: "car"  },
-  { key: "book",  label: "book",    img: "images/book.png",    tts: "book" },
+  { key: "juice", label: "juice", img: "images/juice.png", tts: "juice" },
+  { key: "apple", label: "apple", img: "images/apple.png", tts: "apple" },
+  { key: "ball", label: "ball", img: "images/ball.png", tts: "ball" },
+  { key: "dog", label: "dog", img: "images/dog.png", tts: "dog" },
+  { key: "car", label: "car", img: "images/car.png", tts: "car" },
+  { key: "book", label: "book", img: "images/book.png", tts: "book" },
 ];
 
-// Sets for unlocking themes
+// Social/SEL actions & phrases (use photos/pictos of kids doing these)
+const SOCIAL_WORDS = [
+  {
+    key: "my_turn",
+    label: "my turn",
+    img: "images/social/my_turn.png",
+    tts: "my turn",
+  },
+  {
+    key: "your_turn",
+    label: "your turn",
+    img: "images/social/your_turn.png",
+    tts: "your turn",
+  },
+  { key: "wait", label: "wait", img: "images/social/wait.png", tts: "wait" },
+  {
+    key: "share",
+    label: "share",
+    img: "images/social/share.png",
+    tts: "share",
+  },
+  { key: "help", label: "help", img: "images/social/help.png", tts: "help" },
+  { key: "stop", label: "stop", img: "images/social/stop.png", tts: "stop" },
+  {
+    key: "together",
+    label: "together",
+    img: "images/social/together.png",
+    tts: "together",
+  },
+  {
+    key: "trade",
+    label: "trade",
+    img: "images/social/trade.png",
+    tts: "trade",
+  },
+  { key: "plan", label: "plan", img: "images/social/plan.png", tts: "plan" },
+  {
+    key: "try_again",
+    label: "try again",
+    img: "images/social/try_again.png",
+    tts: "try again",
+  },
+];
+
+// Sets for unlocking/themes (base)
 const SETS = [
   { name: "Set 1", items: ["juice", "apple", "ball"] },
   { name: "Set 2", items: ["dog", "car", "book"] },
 ];
 
+// Social/SEL sets
+const SOCIAL_SETS = [
+  { name: "Turn Taking", items: ["my_turn", "your_turn", "wait", "share"] },
+  { name: "Cooperate", items: ["help", "together", "trade", "plan"] },
+  { name: "Solve It", items: ["stop", "plan", "try_again", "help"] },
+];
+
 const THEMES = [
-  { key: "farm",  label: "Farm",  unlockAfterSet: 1 },
+  { key: "farm", label: "Farm", unlockAfterSet: 1 },
   { key: "space", label: "Space", unlockAfterSet: 2 },
 ];
 
@@ -25,6 +75,8 @@ const THEMES = [
 const toggleText = document.getElementById("toggleText");
 const toggleFewer = document.getElementById("toggleFewer");
 const toggleAdvanced = document.getElementById("toggleAdvanced");
+const toggleSocial = document.getElementById("toggleSocial");
+
 const sayBtn = document.getElementById("sayBtn");
 const playWordBtn = document.getElementById("playWordBtn");
 const nextBtn = document.getElementById("nextBtn");
@@ -38,6 +90,8 @@ const themeBadge = document.getElementById("themeBadge");
 const sentenceStrip = document.getElementById("sentenceStrip");
 const dropSlot = document.getElementById("dropSlot");
 const currentWordLabel = document.getElementById("currentWordLabel");
+const stripFirst = document.getElementById("stripFirst");
+const stripSecond = document.getElementById("stripSecond");
 
 // --- State ----------------------------------------------------------
 let score = 0;
@@ -51,12 +105,28 @@ let answered = false;
 function shuffle(a) {
   const arr = a.slice();
   for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i+1));
+    const j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
 }
-function rand(arr) { return arr[Math.floor(Math.random()*arr.length)]; }
+function rand(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// Active data sources
+function dataset() {
+  return toggleSocial.checked ? SOCIAL_WORDS : WORDS;
+}
+function setList() {
+  return toggleSocial.checked ? SOCIAL_SETS : SETS;
+}
+function currentSet() {
+  return setList()[Math.min(currentSetIndex, setList().length - 1)];
+}
+function findInDataset(key) {
+  return dataset().find((w) => w.key === key);
+}
 
 function loadProgress() {
   try {
@@ -74,42 +144,74 @@ function saveProgress() {
   const p = { score, currentSetIndex, completedInCurrentSet, unlockedThemes };
   localStorage.setItem("wordAssocProgress", JSON.stringify(p));
 
-  // Also integrate a star rating into global rewards
-  const setsCompleted = currentSetIndex + (completedInCurrentSet >= currentSet().items.length ? 1 : 0);
-  const stars = setsCompleted >= 2 ? 3 : (setsCompleted >= 1 ? 2 : (completedInCurrentSet > 0 ? 1 : 0));
+  // Star rating stays tied to total sets completed (in the active mode)
+  const totalSets = setList().length;
+  const setsCompleted = Math.min(
+    currentSetIndex +
+      (completedInCurrentSet >= currentSet().items.length ? 1 : 0),
+    totalSets
+  );
+  const stars =
+    setsCompleted >= 2
+      ? 3
+      : setsCompleted >= 1
+      ? 2
+      : completedInCurrentSet > 0
+      ? 1
+      : 0;
   const rewards = JSON.parse(localStorage.getItem("gameRewards") || "{}");
-  rewards["Word & Picture Association"] = Math.max(stars, rewards["Word & Picture Association"] || 0);
+  rewards["Word & Picture Association"] = Math.max(
+    stars,
+    rewards["Word & Picture Association"] || 0
+  );
   localStorage.setItem("gameRewards", JSON.stringify(rewards));
 }
 
-function currentSet() { return SETS[Math.min(currentSetIndex, SETS.length - 1)]; }
-
+// Speech
 function speakWord(word) {
-  const item = WORDS.find(w => w.key === word);
+  const item = findInDataset(word);
   const text = item?.tts || item?.label || word;
-  if ('speechSynthesis' in window) {
+  if ("speechSynthesis" in window) {
     const u = new SpeechSynthesisUtterance(text);
     u.rate = 0.9;
     u.pitch = 1.0;
-    speechSynthesis.cancel();
+    speechSynthesis.cancel(); // stop any previous utterance before speaking the new one
     speechSynthesis.speak(u);
   } else {
-    // Fallback: show label visibly
     feedbackEl.textContent = `Say: "${text}"`;
   }
   currentWordLabel.textContent = text;
 }
 
+// HUD
 function renderHUD() {
   scoreEl.textContent = score;
-  setProgressEl.textContent = `${Math.min(currentSetIndex+1, SETS.length)}/${SETS.length}`;
+  const totalSets = setList().length;
+  setProgressEl.textContent = `${Math.min(
+    currentSetIndex + 1,
+    totalSets
+  )}/${totalSets}`;
   unlocksEl.textContent = unlockedThemes.join(", ");
   const theme = unlockedThemes[unlockedThemes.length - 1];
-  if (theme) {
+  if (theme && !toggleSocial.checked) {
+    // keep themes for base mode
     themeBadge.hidden = false;
-    themeBadge.textContent = THEMES.find(t => t.key === theme)?.label || theme;
+    const t = THEMES.find((x) => x.key === theme);
+    themeBadge.textContent = t?.label || theme;
   } else {
     themeBadge.hidden = true;
+  }
+}
+
+// Sentence strip labels
+function updateStripLabels() {
+  if (!toggleAdvanced.checked) return;
+  if (toggleSocial.checked) {
+    stripFirst.textContent = "Let's";
+    stripSecond.textContent = "_____"; // visually encourage the verb/action in slot
+  } else {
+    stripFirst.textContent = "I";
+    stripSecond.textContent = "want";
   }
 }
 
@@ -125,14 +227,15 @@ function newRound() {
 
   // Build choices
   const fewer = toggleFewer.checked;
-  const pool = shuffle(WORDS);
-  const correct = pool.find(w => w.key === currentWord);
-  const distractors = pool.filter(w => w.key !== currentWord);
+  const pool = shuffle(dataset());
+  const correct = pool.find((w) => w.key === currentWord);
+  const distractors = pool.filter((w) => w.key !== currentWord);
 
-  const options = fewer ? shuffle([correct, ...distractors.slice(0,1)])
-                        : shuffle([correct, ...distractors.slice(0,3)]);
+  const options = fewer
+    ? shuffle([correct, ...distractors.slice(0, 1)])
+    : shuffle([correct, ...distractors.slice(0, 3)]);
 
-  options.forEach(opt => {
+  options.forEach((opt) => {
     const card = document.createElement("div");
     card.className = "choice";
     card.draggable = true;
@@ -142,7 +245,7 @@ function newRound() {
 
     const img = document.createElement("img");
     img.alt = opt.label;
-    img.src = opt.img; // place assets under client/images/
+    img.src = opt.img;
 
     const label = document.createElement("div");
     label.className = "label";
@@ -172,9 +275,10 @@ function newRound() {
 
   // Speak the target word
   speakWord(currentWord);
+  updateStripLabels();
 }
 
-function tryAnswer(choiceKey, choiceEl) {
+function tryAnswer(choiceKey) {
   if (answered) return;
 
   const isAdvanced = toggleAdvanced.checked;
@@ -184,7 +288,7 @@ function tryAnswer(choiceKey, choiceEl) {
     const isCorrect = choiceKey === currentWord;
 
     // Mark all
-    [...choicesEl.children].forEach(c => {
+    [...choicesEl.children].forEach((c) => {
       const right = c.dataset.key === currentWord;
       c.classList.toggle("correct", right);
       c.classList.toggle("wrong", !right);
@@ -192,10 +296,8 @@ function tryAnswer(choiceKey, choiceEl) {
 
     if (isCorrect) onCorrect();
     else onWrong();
-
   } else {
-    // Advanced: needs to be dropped on the sentence strip
-    // If they clicked, treat as "drop" to slot
+    // Advanced: treat click as a drop into the slot
     dropToSlot(choiceKey);
   }
 }
@@ -209,16 +311,18 @@ function onCorrect() {
   // Complete set?
   if (completedInCurrentSet >= currentSet().items.length) {
     completedInCurrentSet = 0;
-    currentSetIndex = Math.min(currentSetIndex + 1, SETS.length - 1);
+    currentSetIndex = Math.min(currentSetIndex + 1, setList().length - 1);
 
-    // Unlock themes based on sets completed
-    const doneSets = currentSetIndex; // 0-index; after increment this equals completed count minus 0/1
-    THEMES.forEach(t => {
-      if (doneSets >= t.unlockAfterSet && !unlockedThemes.includes(t.key)) {
-        unlockedThemes.push(t.key);
-        feedbackEl.textContent = `🎁 Unlocked ${t.label}!`;
-      }
-    });
+    // Unlock themes only in base (non-social) mode
+    if (!toggleSocial.checked) {
+      const doneSets = currentSetIndex;
+      THEMES.forEach((t) => {
+        if (doneSets >= t.unlockAfterSet && !unlockedThemes.includes(t.key)) {
+          unlockedThemes.push(t.key);
+          feedbackEl.textContent = `🎁 Unlocked ${t.label}!`;
+        }
+      });
+    }
   }
 
   renderHUD();
@@ -227,14 +331,15 @@ function onCorrect() {
 
 function onWrong() {
   feedbackEl.textContent = "❌ Try again";
-  // small nudge without penalty reset
   score = Math.max(0, score - 10);
   renderHUD();
   saveProgress();
 }
 
 // --- Advanced mode: sentence strip ---------------------------------
-dropSlot.addEventListener("dragover", (e) => { e.preventDefault(); });
+dropSlot.addEventListener("dragover", (e) => {
+  e.preventDefault();
+});
 dropSlot.addEventListener("drop", (e) => {
   e.preventDefault();
   const key = e.dataTransfer.getData("text/plain");
@@ -242,7 +347,10 @@ dropSlot.addEventListener("drop", (e) => {
 });
 
 dropSlot.addEventListener("keydown", (e) => {
-  if ((e.key === "Enter" || e.key === " ") && document.activeElement?.classList.contains("choice")) {
+  if (
+    (e.key === "Enter" || e.key === " ") &&
+    document.activeElement?.classList.contains("choice")
+  ) {
     const key = document.activeElement.dataset.key;
     dropToSlot(key);
   }
@@ -253,13 +361,10 @@ function dropToSlot(key) {
   const isCorrect = key === currentWord;
   dropSlot.classList.toggle("ok", isCorrect);
   dropSlot.classList.toggle("nope", !isCorrect);
-  dropSlot.textContent = isCorrect ? WORDS.find(w => w.key === key)?.label : "____";
+  dropSlot.textContent = isCorrect ? findInDataset(key)?.label || key : "____";
 
-  if (isCorrect) {
-    onCorrect();
-  } else {
-    onWrong();
-  }
+  if (isCorrect) onCorrect();
+  else onWrong();
 }
 
 // --- Events & init --------------------------------------------------
@@ -268,23 +373,33 @@ toggleFewer.addEventListener("change", () => newRound());
 toggleAdvanced.addEventListener("change", () => {
   const adv = toggleAdvanced.checked;
   sentenceStrip.hidden = !adv;
+  updateStripLabels();
+});
+toggleSocial.addEventListener("change", () => {
+  // Reset progress when switching modes so sets start fresh
+  currentSetIndex = 0;
+  completedInCurrentSet = 0;
+  renderHUD();
+  newRound();
 });
 
-sayBtn.addEventListener("click", () => { if (currentWord) speakWord(currentWord); });
-playWordBtn.addEventListener("click", () => { if (currentWord) speakWord(currentWord); });
+sayBtn.addEventListener("click", () => {
+  if (currentWord) speakWord(currentWord);
+});
+playWordBtn.addEventListener("click", () => {
+  if (currentWord) speakWord(currentWord);
+});
 nextBtn.addEventListener("click", () => newRound());
 
 function init() {
   loadProgress();
   renderHUD();
+
   // Show/hide strip based on toggle
   sentenceStrip.hidden = !toggleAdvanced.checked;
 
-  // Ensure image fallbacks exist; if not, swap to emoji placeholders
-  WORDS.forEach(w => {
-    // If you don't have images yet, you can temporarily point to a generic icon or data URL
-    // e.g., w.img = "images/placeholder.png";
-  });
+  // Ensure image fallbacks exist; if not, you can point to a generic icon
+  // [...dataset()].forEach(w => { if (!w.img) w.img = "images/placeholder.png"; });
 
   newRound();
 }
