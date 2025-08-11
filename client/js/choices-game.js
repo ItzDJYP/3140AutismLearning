@@ -112,3 +112,6 @@ function showEndMessage() {
   questionElement.innerText = "🎉 Great job! You've finished the game.";
   nextButton.style.display = "none";
 }
+
+// Start the game when the page loads
+document.addEventListener("DOMContentLoaded", startGame);
