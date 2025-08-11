@@ -1,11 +1,11 @@
-// Emotion data. You can swap emoji for image URLs later (e.g., {img: "images/happy.png"})
+// Emotion data with image URLs instead of emojis
 const EMOTIONS = [
-  { key: "happy",    label: "Happy",    emoji: "😀" },
-  { key: "sad",      label: "Sad",      emoji: "😢" },
-  { key: "angry",    label: "Angry",    emoji: "😠" },
-  { key: "surprised",label: "Surprised",emoji: "😲" },
-  { key: "scared",   label: "Scared",   emoji: "😨" },
-  { key: "tired",    label: "Tired",    emoji: "😪" },
+  { key: "happy",    label: "Happy",    img: "images/happy.png" },
+  { key: "sad",      label: "Sad",      img: "images/sad.png" },
+  { key: "angry",    label: "Angry",    img: "images/angry.png" },
+  { key: "surprised",label: "Surprised",img: "images/surprised.png" },
+  { key: "scared",   label: "Scared",   img: "images/scared.png" },
+  { key: "tired",    label: "Tired",    img: "images/tired.png" },
 ];
 
 const SCENES = [
@@ -33,7 +33,6 @@ let streak = 0;
 let current = null; // {emotionKey, sceneKey}
 let answered = false;
 let firstTry = true;
-let unlocked = []; // sticker packs
 
 function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 function shuffle(arr) {
@@ -52,27 +51,30 @@ function loadProgress() {
     const data = JSON.parse(raw);
     score = data.score || 0;
     streak = data.streak || 0;
-    unlocked = Array.isArray(data.unlocked) ? data.unlocked : [];
+    // Removed unlocked sticker packs
   } catch {}
 }
 
 function saveProgress() {
-  const data = { score, streak, unlocked };
+  const data = { score, streak };
   localStorage.setItem("emotionMatchProgress", JSON.stringify(data));
 
-  // Also save a star rating to integrate with your progress page
-  const stars = streak >= 5 ? 3 : (streak >= 3 ? 2 : (streak >= 1 ? 1 : 0));
+  // Award 1 star for each win (correct answer)
+  const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+  let starHistory = JSON.parse(localStorage.getItem("starHistory") || "{}");
+  starHistory[today] = (starHistory[today] || 0) + 1;
+  localStorage.setItem("starHistory", JSON.stringify(starHistory));
+
+  // Update gameRewards for chart
   const rewards = JSON.parse(localStorage.getItem("gameRewards") || "{}");
-  rewards["Emotion Match-Up"] = Math.max(stars, rewards["Emotion Match-Up"] || 0);
+  rewards["Emotion Match-Up"] = (rewards["Emotion Match-Up"] || 0) + 1;
   localStorage.setItem("gameRewards", JSON.stringify(rewards));
 }
 
 function renderHUD() {
   scoreEl.textContent = score;
   streakEl.textContent = streak;
-  unlocksEl.textContent = unlocked.length
-    ? `Unlocked: ${unlocked.join(", ")}`
-    : "";
+  unlocksEl.textContent = "";
 }
 
 function pickRound() {
@@ -81,7 +83,7 @@ function pickRound() {
   const emo = rand(EMOTIONS);
   current = { emotionKey: emo.key, sceneKey: scene.key };
 
-  faceEl.textContent = emo.emoji;
+  faceEl.innerHTML = `<img src="${emo.img}" alt="${emo.label}" style="width:80px;height:80px;">`;
   if (scene.label) {
     sceneTagEl.hidden = false;
     sceneTagEl.textContent = scene.label;
@@ -119,18 +121,11 @@ function buildChoices(correctKey) {
     item.tabIndex = 0;
     item.dataset.key = opt.key;
 
-    const emoji = document.createElement("div");
-    emoji.className = "emoji";
-    emoji.textContent = opt.emoji;
-
+    // Only show the label (word), no emoji or image
     const label = document.createElement("div");
     label.className = "label";
     label.textContent = opt.label;
-
-    item.appendChild(emoji);
     item.appendChild(label);
-
-    if (!toggleText.checked) item.classList.add("hide-label");
 
     // Drag events
     item.addEventListener("dragstart", (e) => {
@@ -188,7 +183,7 @@ function tryAnswer(choiceKey, choiceEl) {
     score += gained;
     streak += 1;
     feedbackEl.textContent = firstTry ? "✅ First try! +100" : "✅ Correct! +50";
-    checkUnlocks();
+    // Removed sticker pack unlocks
     renderHUD();
     saveProgress();
   } else {
@@ -199,25 +194,10 @@ function tryAnswer(choiceKey, choiceEl) {
   }
 }
 
-function checkUnlocks() {
-  // Simple “sticker pack” unlocks
-  if (streak === 3 && !unlocked.includes("Emotion Stickers A")) {
-    unlocked.push("Emotion Stickers A");
-    announceUnlock("Emotion Stickers A");
-  } else if (streak === 5 && !unlocked.includes("Emotion Stickers B")) {
-    unlocked.push("Emotion Stickers B");
-    announceUnlock("Emotion Stickers B");
-  }
-}
-
-function announceUnlock(name) {
-  unlocksEl.textContent = `Unlocked: ${unlocked.join(", ")}`;
-  feedbackEl.textContent = `🎁 You unlocked ${name}!`;
-}
+// Removed sticker pack unlock functions
 
 toggleText.addEventListener("change", () => {
-  // Rebuild to apply label visibility to all choices
-  if (current) buildChoices(current.emotionKey);
+  // Removed text label toggle
 });
 
 toggleFewer.addEventListener("change", () => {

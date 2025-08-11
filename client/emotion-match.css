@@ -166,7 +166,3 @@ button, a[role="button"] {
   color: #111827;
 }
 .secondary:hover { background: #d1d5db; }
-
-@media (max-width: 760px) {
-  .board { grid-template-columns: 1fr; }
-}

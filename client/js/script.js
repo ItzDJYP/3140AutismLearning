@@ -2,7 +2,7 @@
 async function login() {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
-  const errorMsg = document.getElementById("error-message");
+  // Remove error message element reference
 
   if (!username || !password) {
     alert("Please enter both a username and password.");
@@ -19,14 +19,17 @@ async function login() {
     const data = await res.json();
 
     if (!res.ok) {
-      errorMsg.textContent = data.message || "Login failed. Try again.";
+      alert(data.message || "Login failed. Try again.");
       return;
     }
 
     // Login success — show home screen
     showHomeScreen(data.user);
-    errorMsg.textContent = "";
   
+  } catch (error) {
+    alert("An error occurred during login. Please try again.");
+    console.error("Login error:", error);
+  }
 }
 
 // Show home screen using user session data
