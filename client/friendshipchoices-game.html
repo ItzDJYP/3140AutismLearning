@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Making Friends — Kids’ Social Problem-Solving Game</title>
+<link rel="stylesheet" href="friendshipchoices-game.css" />
+ <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Aladin&family=Henny+Penny&family=Kanit:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+</head>
+<body>
+  <div class="app" role="application" aria-label="Making Friends game">
+    <header>
+      <h1>Making Friends — Choose What You’d Do</h1>
+      <div class="toggles">
+        <label><input type="checkbox" id="ttsToggle" checked /> Read aloud</label>
+         <a href="index.html" class="secondary" role="button" id="backBtn" aria-label="Go back to home">Home</a>
+      </div>
+    </header>
+
+    <section class="hud" aria-label="Progress">
+      <div class="meter">
+        Level: <strong id="level">1</strong>
+        <div class="timer-bar" aria-label="Time left"><div class="timer-fill" id="timerFill" style="width:100%"></div></div>
+      </div>
+      <div class="meter">Score: <strong id="score">0</strong></div>
+      <div class="meter">Streak: <strong id="streak">0</strong></div>
+      <div class="pill">Questions: <strong id="qCount">0</strong></div>
+    </section>
+
+    <section class="board">
+      <div class="card">
+        <div class="scenario">
+          <div class="emoji" id="scenarioEmoji" aria-hidden="true">😊</div>
+          <div class="scenario-text" id="scenarioText" aria-live="polite">Loading…</div>
+        </div>
+
+
+        <div class="choices" id="choices" role="listbox" aria-label="Choices"></div>
+        <div class="feedback" id="feedback" aria-live="polite"></div>
+        <div class="explain" id="explain"></div>
+
+        <div class="actions">
+          <button class="secondary" id="repeatBtn" title="Hear it again">🔊 Hear again</button>
+          <button class="primary" id="nextBtn" disabled>Next ▶</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+<script src="./js/friendshipchoices-game.js"></script>
+
+</body>
+</html>
+

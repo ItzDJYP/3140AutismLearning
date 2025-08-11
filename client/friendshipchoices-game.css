@@ -1,0 +1,343 @@
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  display: grid;
+  place-items: center;
+
+  font-family: "Kanit", Arial, sans-serif;
+
+  color: #ffffff;
+  padding: 16px;
+
+  /* Background image from your previous page */
+  background-image: url("images/blocks.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #1a1a1a;
+}
+
+#backBtn {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #0d4997;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+#backBtn:hover {
+   background-color: #4481d1;
+}
+
+
+/* Optional heading font from previous page */
+h1 {
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  font-family: "Kanit", Arial, sans-serif;
+  font-weight: 600;
+  margin: 0;
+  font-size: clamp(1.4rem, 3.2vw, 2rem);
+}
+
+/* -------------------------------------------------------
+   App Container (glass panel to match previous page)
+   ------------------------------------------------------- */
+
+.app {
+  width: min(960px, 98vw);
+
+  background: rgba(1, 101, 177, 0.836);                /* semi-transparent */
+  box-shadow: 0 8px 32px 0 rgba(25, 118, 210, 0.37);    /* soft glow */
+  backdrop-filter: blur(10px);                          /* glass blur */
+  -webkit-backdrop-filter: blur(10px);                  /* Safari */
+  border: 1px solid rgba(255, 255, 255, 0.2);           /* subtle edge */
+  border-radius: 16px;
+
+  padding: 24px;
+}
+
+/* -------------------------------------------------------
+   Header / Toggles (Read Aloud + Back)
+   ------------------------------------------------------- */
+
+header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.toggles {
+  display: flex;
+  align-items: center;
+  gap: 10px 12px;
+  flex-wrap: wrap;
+}
+
+.toggles label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.95rem;
+  color: #fff;
+}
+
+/* Back link styled like a secondary button */
+.toggles a.secondary {
+  text-decoration: none;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  cursor: pointer;
+
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.toggles a.secondary:hover {
+  background: #d1d5db;
+}
+
+.toggles input[type="checkbox"] {
+  accent-color: #ffffff;
+  inline-size: 1.05rem;
+  block-size: 1.05rem;
+}
+
+
+.hud {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 12px 0 18px;
+}
+
+.meter,
+.pill {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: #fff;
+}
+
+.meter strong,
+.pill strong {
+  font-weight: 700;
+  color: #fff;
+}
+
+.timer-bar {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.timer-fill {
+  height: 100%;
+  width: 100%;
+  background: #ffffff;            /* clear against blue glass */
+  transition: width 0.2s linear;
+}
+
+
+.board {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.card {
+  /* keep it in the same glass panel */
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.scenario {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.emoji {
+  font-size: 44px;
+  inline-size: 64px;
+  block-size: 64px;
+
+  display: grid;
+  place-items: center;
+
+  background: #ffffff;
+  color: #111827;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.scenario-text {
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  line-height: 1.55;
+  color: #fff;
+}
+
+.choices {
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.choice {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px;
+  border-radius: 12px;
+
+  background: #ffffff;            /* white card for contrast */
+  border: 1px solid #e5e7eb;
+  color: #111827;
+
+  cursor: pointer;
+  user-select: none;
+  text-align: left;
+
+  transition:
+    transform 0.08s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.choice:active {
+  transform: translateY(1px);
+}
+
+.choice .icon {
+  font-size: 22px;
+  inline-size: 36px;
+  block-size: 36px;
+
+  display: grid;
+  place-items: center;
+
+  background: #f3f4f6;
+  color: #111827;
+
+  border-radius: 8px;
+}
+
+/* Correct / wrong states (green wins any conflict) */
+.choice.correct {
+  border-color: #10b981;
+  background: #ecfdf5;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25) inset;
+}
+
+.choice.wrong {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+
+.choice.correct.wrong {
+  border-color: #10b981;
+  background: #ecfdf5;
+}
+
+/* Disabled (paused) */
+.choice:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+.actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+button,
+a[role="button"] {
+  border: none;
+  border-radius: 10px;
+
+  padding: 12px 14px;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.primary {
+  background: #1976d2;
+  color: #fff;
+}
+
+.primary:hover {
+  background: #0d47a1;
+}
+
+.secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.secondary:hover {
+  background: #d1d5db;
+}
+
+/* -------------------------------------------------------
+   Feedback
+   ------------------------------------------------------- */
+
+.feedback {
+  min-height: 26px;
+  font-weight: 700;
+  margin: 8px 0 2px;
+  color: #fff;
+}
+
+.explain {
+  color: #f3f4f6;
+}
+
+/* -------------------------------------------------------
+   Focus Styles (accessible)
+   ------------------------------------------------------- */
+
+:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* -------------------------------------------------------
+   Responsive
+   ------------------------------------------------------- */
+
+@media (max-width: 720px) {
+  .hud {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timer-fill,
+  .choice {
+    transition: none;
+  }
+}
