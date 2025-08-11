@@ -10,7 +10,7 @@ Sherwan - Researcher/Backend| [Github](https://github.com/Sheroka)
 
 ** **Project Idea:** **
 
-Altus is a web-based platform designed to support parents and caregivers of autistic children by offering educational minigames that turn learning into a rewarding experience. Through a secure login system, users can access short, engaging games tailored to enhance cognitive and social skills in children with autism. As children progress, they earn points that parents can redeem for real or virtual rewards. In addition to gameplay, the website features a dedicated educational hub to raise awareness and inform the public about autism.
+Altus is a website designed to support parents and caregivers of autistic children by offering educational minigames that turn learning into a rewarding experience. Through a secure login system, users can access short, engaging games tailored to enhance cognitive and social skills in children with autism. As children progress, they earn points that parents can redeem for real or virtual rewards. In addition to gameplay, the website features a dedicated educational hub to raise awareness and inform the public about autism.
 
 Key Features:
 
