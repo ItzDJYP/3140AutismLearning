@@ -1,0 +1,123 @@
+:root{
+  --bg:#0f172a;          /* slate-900 */
+  --card:#0b1226;        /* deep card */
+  --ink:#e5e7eb;         /* slate-200 */
+  --muted:#94a3b8;       /* slate-400 */
+  --accent:#60a5fa;      /* sky-400 */
+  --accent-2:#34d399;    /* emerald-400 */
+  --warn:#f87171;        /* red-400 */
+  --tile:#111a34;
+  --tile-border:#1f2b4a;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background: radial-gradient(1200px 800px at 20% -10%, #122042 0%, #0a1123 50%, #070d1a 100%), var(--bg);
+  color:var(--ink);
+  font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;
+  display:flex;align-items:center;justify-content:center;
+}
+
+.app{
+  width:min(1100px,96vw);
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  gap:14px;
+}
+
+.hud{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 12px; background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06); border-radius:14px;
+  backdrop-filter: blur(8px);
+}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{font-size:24px}
+.hud h1{font-size:20px; margin:0}
+.stats{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.stat{color:var(--muted)}
+
+.ghost{
+  background:transparent; color:var(--ink);
+  border:1px solid rgba(255,255,255,0.2);
+  padding:8px 10px; border-radius:10px; cursor:pointer;
+}
+.ghost.small{font-size:12px;padding:6px 8px}
+.ghost:hover{border-color:rgba(255,255,255,0.35)}
+
+.panel{
+  background:rgba(16,24,48,0.9);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:14px; padding:14px; margin-top:-6px; margin-bottom:6px;
+}
+.panel h2,.panel h3{margin:6px 0 8px 0}
+.panel label{display:block; margin:8px 0; color:var(--ink)}
+.skins{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+.skin-btn{
+  border:1px solid rgba(255,255,255,0.2); border-radius:10px;
+  background:#0d1730; color:var(--ink); padding:6px 10px; cursor:pointer;
+}
+.skin-btn.active{border-color:var(--accent-2); box-shadow:0 0 0 2px rgba(52,211,153,0.25) inset}
+
+.board{
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:14px;
+  display:grid; gap:14px;
+}
+
+.pattern{
+  display:grid; grid-template-columns:1fr auto; gap:10px; align-items:start;
+}
+.type{color:var(--muted); font-size:14px}
+.sequence{
+  grid-column:1 / -1; display:flex; flex-wrap:wrap; gap:8px; margin-top:-2px;
+}
+.seq-item{
+  background:var(--tile); border:1px solid var(--tile-border);
+  padding:8px 12px; border-radius:10px; font-size:24px; min-width:52px; text-align:center;
+}
+.seq-item.missing{border-style:dashed; color:#9ca3af}
+
+.actions{display:flex; gap:8px; justify-self:end}
+.secondary{
+  background:#102047; color:var(--ink); border:1px solid rgba(255,255,255,0.2);
+  padding:8px 12px; border-radius:10px; cursor:pointer;
+}
+.secondary:hover{border-color:rgba(255,255,255,0.35)}
+
+.track{
+  position:relative; background:#0a142d; border:1px solid rgba(255,255,255,0.08);
+  border-radius:14px; padding:14px;
+}
+.tiles{display:grid; grid-template-columns: repeat(8, 1fr); gap:8px}
+.tile{
+  background:#0d1a39; border:1px dashed #20345e; border-radius:10px; height:42px;
+}
+.avatar{
+  --x: 0;
+  position:absolute; top:50%; transform: translate(calc(var(--x) * 100%), -50%);
+  left:18px;
+  transition: transform 300ms ease;
+  font-size:28px;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
+}
+
+.choices{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
+  gap:10px;
+}
+.choice{
+  background:#0f1f42; border:1px solid rgba(255,255,255,0.15);
+  border-radius:12px; padding:16px; font-size:28px; text-align:center;
+  cursor:pointer; user-select:none; transition: transform .06s, box-shadow .2s, border-color .2s;
+}
+.choice.big{padding:22px; font-size:34px}
+.choice:active{transform:scale(0.98)}
+.choice.correct{border-color:var(--accent-2); box-shadow:0 0 0 2px rgba(52,211,153,0.25) inset}
+.choice.wrong{border-color:var(--warn); box-shadow:0 0 0 2px rgba(248,113,113,0.25) inset}
+
+.feedback{min-height:22px; color:var(--muted); font-weight:600}
+.foot{display:flex; justify-content:space-between; gap:8px}
+a[role="button"]{text-decoration:none}

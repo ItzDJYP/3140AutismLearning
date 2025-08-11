@@ -1,0 +1,116 @@
+.aladin-regular {
+  font-family: "Aladin", system-ui;
+  font-weight: 400;
+}
+.henny-penny-regular {
+  font-family: "Henny Penny", system-ui;
+  font-weight: 400;
+}
+.kanit-regular {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+}
+.kanit-medium {
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  color: #fff;
+  background-image: url("images/blocks.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #1a1a1a;
+  font-family: "Kanit", Arial, sans-serif;
+}
+
+h1 {
+  font-family: "Henny Penny", system-ui;
+  font-size: 4.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Glass card container */
+#signup-container {
+  margin: 2rem auto;
+  width: min(95vw, 640px);
+  background: rgba(1, 101, 177, 0.836);
+  box-shadow: 0 8px 32px 0 rgba(25, 118, 210, 0.37);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: clamp(1rem, 4vw, 7rem);
+  text-align: center;
+}
+
+#signup-button {
+  margin-top: 1rem;
+  font-family: "Kanit", sans-serif;
+  background-color: #0d4997;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#signup-button:hover {
+  background-color: #155ab6;
+}
+
+/* Form layout */
+.field {
+  margin-bottom: 14px;
+}
+label {
+  display: inline-block;
+  margin-bottom: 6px;
+  color: #fff;
+}
+
+input {
+  width: 100%;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  padding: 12px 14px;
+  outline: none;
+  transition: box-shad;
+}
+
+/* placeholder text color */
+input::placeholder,
+textarea::placeholder {
+  color: #ffffff;
+  opacity: 1;
+}
+
+input:focus::placeholder {
+  color: #b2d4e2;
+}
+
+.login-message {
+  font-family: "Kanit", sans-serif;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+.login-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+}

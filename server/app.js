@@ -79,7 +79,7 @@ app.post('/api/signup', async (req, res) => {
 
     const hashed = await bcrypt.hash(password, 10);
 
-    const user = await User.create({
+    await User.create({
       parentName,
       childName,
       email,
@@ -87,21 +87,14 @@ app.post('/api/signup', async (req, res) => {
       password: hashed
     });
 
-    req.session.user = {
-      id: user._id,
-      parentName: user.parentName,
-      childName: user.childName,
-      email: user.email,
-      username: user.username,
-      createdAt: user.createdAt
-    };
-
-    res.json({ message: 'Signup successful', user: req.session.user });
+    // Don't log them in — just confirm
+    res.json({ message: 'Signup successful! Please log in.' });
   } catch (err) {
     console.error(err);
     res.status(400).json({ message: 'Error during signup', error: err.message });
   }
 });
+
 
 // Login (by username OR email)
 app.post('/api/login', async (req, res) => {
