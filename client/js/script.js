@@ -25,10 +25,8 @@ async function login() {
 
     // Login success — show home screen
     showHomeScreen(data.user);
-  } catch (err) {
-    console.error("Login error:", err);
-    errorMsg.textContent = "Something went wrong. Please try again.";
-  }
+    errorMsg.textContent = "";
+  
 }
 
 // Show home screen using user session data
