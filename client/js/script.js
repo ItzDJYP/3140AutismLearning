@@ -1,6 +1,6 @@
 // Login function with server validation
 async function login() {
-  const username = document.getElementById("username").value.trim();
+  const usernameOrEmail = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
   // Remove error message element reference
 
@@ -13,7 +13,7 @@ async function login() {
     const res = await fetch("/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ usernameOrEmail, password }),
     });
 
     const data = await res.json();
