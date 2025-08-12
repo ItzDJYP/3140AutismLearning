@@ -1,11 +1,11 @@
 // Emotion data with image URLs instead of emojis
 const EMOTIONS = [
-  { key: "happy",    label: "Happy",    img: "images/happy.png" },
-  { key: "sad",      label: "Sad",      img: "images/sad.png" },
-  { key: "angry",    label: "Angry",    img: "images/angry.png" },
-  { key: "surprised",label: "Surprised",img: "images/surprised.png" },
-  { key: "scared",   label: "Scared",   img: "images/scared.png" },
-  { key: "tired",    label: "Tired",    img: "images/tired.png" },
+  { key: "happy",    label: "Happy",    img: "images/emotionmatch/happy.jpg" },
+  { key: "sad",      label: "Sad",      img: "images/emotionmatch/sad.jpeg" },
+  { key: "angry",    label: "Angry",    img: "images/emotionmatch/angry.webp" },
+  { key: "surprised",label: "Surprised",img: "images/emotionmatch/surprised.avif" },
+  { key: "scared",   label: "Scared",   img: "images/emotionmatch/scared.jpg" },
+  { key: "tired",    label: "Tired",    img: "images/emotionmatch/tired.jpg" },
 ];
 
 const SCENES = [

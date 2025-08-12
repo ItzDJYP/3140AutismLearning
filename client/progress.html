@@ -38,7 +38,8 @@
       "Monday": 3,
       "Tuesday": 2,
       "Wednesday": 4,
-      "Thursday": 1
+      "Thursday": 1,
+      "Friday": 5
     };
 
     const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
@@ -60,7 +61,7 @@
     localStorage.setItem("starHistory", JSON.stringify(starHistory));
 
     // 4. Prepare chart data
-    const labels = ["Monday", "Tuesday", "Wednesday", "Thursday", today];
+    const labels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", today];
     const data = labels.map(day => starHistory[day] || 0);
 
     const ctx = document.getElementById("progressChart").getContext("2d");
