@@ -8,15 +8,15 @@ Ashanti - UX/UI Designer| [Github](https://github.com/ashantib102)
 
 Sherwan - Researcher/Backend| [Github](https://github.com/Sheroka)
 
-** **Project Idea:** **
+** **Project Description:** **
 
-Altus is a website designed to support parents and caregivers of autistic children by offering educational minigames that turn learning into a rewarding experience. Through a secure login system, users can access short, engaging games tailored to enhance cognitive and social skills in children with autism. As children progress, they earn points that parents can redeem for real or virtual rewards. In addition to gameplay, the website features a dedicated educational hub to raise awareness and inform the public about autism.
+Atlus is a website that helps autistic children ages 4–6 practice essential social–emotional skills through short, playful games designed for early learners. This window is especially important for building the foundations of language, social interaction, and everyday thinking skills like focusing, remembering steps, planning, and self-control—areas where well-timed, developmentally appropriate practice can make a meaningful difference.
 
 Key Features:
 
-User Login for parents/caregivers
+Sign Up Page for Parents/Caregivers to register their child
 
-Minigame Library with targeted educational goals
+5 games with targeted educational goals
 
 Reward System that incentivizes consistent engagement
 
