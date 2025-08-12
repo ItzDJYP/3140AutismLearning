@@ -65,9 +65,10 @@ function saveProgress() {
   if (starsForRewards >= 15) rating = 3;
   else if (starsForRewards >= 10) rating = 2;
   else if (starsForRewards >= 5) rating = 1;
-  const rewards = JSON.parse(localStorage.getItem("gameRewards") || "{}");
+  const currentUser = localStorage.getItem("currentUser") || "guest";
+  const rewards = JSON.parse(localStorage.getItem(`gameRewards_${currentUser}`) || "{}");
   rewards["Pattern Path"] = Math.max(rating, rewards["Pattern Path"] || 0);
-  localStorage.setItem("gameRewards", JSON.stringify(rewards));
+  localStorage.setItem(`gameRewards_${currentUser}`, JSON.stringify(rewards));
 }
 
 function speak(text) {

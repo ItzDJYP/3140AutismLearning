@@ -81,14 +81,15 @@ function loadProgress() {
 
 function saveProgress() {
   const p = { score, currentSetIndex, completedInCurrentSet };
-  localStorage.setItem("wordAssocProgress", JSON.stringify(p));
+  const currentUser = localStorage.getItem("currentUser") || "guest";
+  localStorage.setItem(`wordAssocProgress_${currentUser}`, JSON.stringify(p));
 
   // Optional: simple star rating by sets completed (1–4 stars)
   const setsCompleted = currentSetIndex + (completedInCurrentSet >= currentSet().items.length ? 1 : 0);
   const stars = Math.max(0, Math.min(4, setsCompleted));
-  const rewards = JSON.parse(localStorage.getItem("gameRewards") || "{}");
+  const rewards = JSON.parse(localStorage.getItem(`gameRewards_${currentUser}`) || "{}");
   rewards["Word & Picture Association"] = Math.max(stars, rewards["Word & Picture Association"] || 0);
-  localStorage.setItem("gameRewards", JSON.stringify(rewards));
+  localStorage.setItem(`gameRewards_${currentUser}`, JSON.stringify(rewards));
 }
 
 function currentSet() { return SETS[Math.min(currentSetIndex, SETS.length - 1)]; }

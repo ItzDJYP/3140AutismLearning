@@ -111,6 +111,12 @@ function showEndMessage() {
   resetState();
   questionElement.innerText = "🎉 Great job! You've finished the game.";
   nextButton.style.display = "none";
+
+  // Award 1 star for finishing the game
+  const currentUser = localStorage.getItem("currentUser") || "guest";
+  const rewards = JSON.parse(localStorage.getItem(`gameRewards_${currentUser}`) || "{}");
+  rewards["Social Choices Game"] = (rewards["Social Choices Game"] || 0) + 1;
+  localStorage.setItem(`gameRewards_${currentUser}`, JSON.stringify(rewards));
 }
 
 // Start the game when the page loads

@@ -57,18 +57,19 @@ function loadProgress() {
 
 function saveProgress() {
   const data = { score, streak };
-  localStorage.setItem("emotionMatchProgress", JSON.stringify(data));
+  const currentUser = localStorage.getItem("currentUser") || "guest";
+  localStorage.setItem(`emotionMatchProgress_${currentUser}`, JSON.stringify(data));
 
   // Award 1 star for each win (correct answer)
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
-  let starHistory = JSON.parse(localStorage.getItem("starHistory") || "{}");
+  let starHistory = JSON.parse(localStorage.getItem(`starHistory_${currentUser}`) || "{}");
   starHistory[today] = (starHistory[today] || 0) + 1;
-  localStorage.setItem("starHistory", JSON.stringify(starHistory));
+  localStorage.setItem(`starHistory_${currentUser}`, JSON.stringify(starHistory));
 
   // Update gameRewards for chart
-  const rewards = JSON.parse(localStorage.getItem("gameRewards") || "{}");
+  const rewards = JSON.parse(localStorage.getItem(`gameRewards_${currentUser}`) || "{}");
   rewards["Emotion Match-Up"] = (rewards["Emotion Match-Up"] || 0) + 1;
-  localStorage.setItem("gameRewards", JSON.stringify(rewards));
+  localStorage.setItem(`gameRewards_${currentUser}`, JSON.stringify(rewards));
 }
 
 function renderHUD() {

@@ -546,7 +546,8 @@ function handleTimeout(){
 // --------- Persistence ----------
 function restoreProgress(){
   try{
-    const raw = localStorage.getItem('friendsGameProgress');
+    const currentUser = localStorage.getItem("currentUser") || "guest";
+    const raw = localStorage.getItem(`friendsGameProgress_${currentUser}`);
     if(!raw) return;
     const p = JSON.parse(raw);
     level  = p.level  || 1;
@@ -556,8 +557,16 @@ function restoreProgress(){
   }catch{}
 }
 function saveProgress(){
+  const currentUser = localStorage.getItem("currentUser") || "guest";
   const p = { level, score, streak, qCount };
-  localStorage.setItem('friendsGameProgress', JSON.stringify(p));
+  localStorage.setItem(`friendsGameProgress_${currentUser}`, JSON.stringify(p));
+
+  // Award a star for every 8 questions answered
+  if (qCount > 0 && qCount % 8 === 0) {
+    const rewards = JSON.parse(localStorage.getItem(`gameRewards_${currentUser}`) || "{}");
+    rewards["Making Friends Game"] = (rewards["Making Friends Game"] || 0) + 1;
+    localStorage.setItem(`gameRewards_${currentUser}`, JSON.stringify(rewards));
+  }
 }
 addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='hidden') saveProgress(); });
 addEventListener('beforeunload', saveProgress);

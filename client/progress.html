@@ -19,8 +19,9 @@
   </div>
 
   <script>
-    // 1. Show total stars per game
-    const rewards = JSON.parse(localStorage.getItem("gameRewards") || "{}");
+    // Get current user for per-user progress
+    const currentUser = localStorage.getItem("currentUser") || "guest";
+    const rewards = JSON.parse(localStorage.getItem(`gameRewards_${currentUser}`) || "{}");
     const list = document.getElementById("reward-list");
 
     if (Object.keys(rewards).length === 0) {
@@ -49,7 +50,7 @@
     }
 
     // 3. Track and persist star history
-    let starHistory = JSON.parse(localStorage.getItem("starHistory") || "{}");
+    let starHistory = JSON.parse(localStorage.getItem(`starHistory_${currentUser}`) || "{}");
     starHistory[today] = todayStars;
 
     for (const [day, stars] of Object.entries(pastStars)) {
@@ -58,7 +59,7 @@
       }
     }
 
-    localStorage.setItem("starHistory", JSON.stringify(starHistory));
+    localStorage.setItem(`starHistory_${currentUser}`, JSON.stringify(starHistory));
 
     // 4. Prepare chart data
     const labels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", today];

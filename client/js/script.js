@@ -51,6 +51,9 @@ function showHomeScreen(user) {
      Email: ${user.email || "N/A"}<br>
      Signed up: ${new Date(user.createdAt).toLocaleDateString()}`;
 
+  // Save current user for per-user progress tracking
+  localStorage.setItem("currentUser", user.username || user.email);
+
   // Optional animation or styling if you want
   const profileContainer = document.querySelector(".profile");
   if (profileContainer) {
