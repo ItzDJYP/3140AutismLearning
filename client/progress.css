@@ -61,24 +61,3 @@ canvas {
   }
 }
 
- .container { max-width: 900px; margin: 0 auto; padding: 1rem; }
-    /* Chart container ensures the canvas keeps its space */
-    .chart-wrap { height: 320px; /* adjust if you want taller */ }
-    #progressChart { width: 100% !important; height: 100% !important; }
-
-    /* Rewards layout */
-    .rewards-wrap { margin-top: 1rem; }
-    .rewards-wrap details { border: 1px solid #eee; border-radius: 10px; padding: .6rem .8rem; background: #fff; }
-    .rewards-wrap summary { cursor: pointer; font-weight: 700; list-style: none; }
-    .rewards-wrap summary::-webkit-details-marker { display: none; }
-    .rewards-wrap summary:after { content: " ⌄"; font-weight: 400; }
-    .reward-grid { list-style: none; padding: .5rem 0 0; margin: 0; display: grid; gap: .5rem;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
-    .reward-item { border: 1px solid #eee; border-radius: 10px; padding: .6rem .8rem; display: flex; align-items: center; gap: .5rem; background: #fff; }
-    .reward-item .emoji { font-size: 1.5rem; }
-    .reward-item .title { font-weight: 600; }
-    .reward-item .cost { opacity: .8; font-size: .9rem; }
-    @media (max-width: 600px) {
-      .chart-wrap { height: 260px; }
-      .reward-grid { grid-template-columns: 1fr; }
-    }
