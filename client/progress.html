@@ -1,22 +1,131 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>My Progress</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .container { max-width: 900px; margin: 0 auto; padding: 1rem; }
+    .chart-wrap { height: 320px; margin-bottom: 1rem; }
+    #progressChart { width: 100% !important; height: 100% !important; }
+
+    /* Rewards table */
+    .rewards-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background: rgba(1, 101, 177, 0.836); /* semi-transparent*/
+      box-shadow: 0 8px 32px 0 rgba(25, 118, 210, 0.37);
+      backdrop-filter: blur(10px); /* the glass blur effect */
+      -webkit-backdrop-filter: blur(10px); /* Safari support */
+    }
+    .rewards-table th, .rewards-table td {
+      border: 1px solid #ddd;
+      padding: .6rem;
+      text-align: left;
+    }
+    .rewards-table th {
+      background: rgba(1, 101, 177, 0.836); /* semi-transparent*/
+    box-shadow: 0 8px 32px 0 rgba(25, 118, 210, 0.37);
+    backdrop-filter: blur(10px); /* the glass blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+      font-weight: 700;
+    }
+    .emoji {
+      font-size: 1.5rem;
+      text-align: center;
+      width: 40px;
+    }
+    @media (max-width: 600px) {
+      .chart-wrap { height: 260px; }
+      .rewards-table th, .rewards-table td { font-size: .9rem; }
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <h2>My Progress</h2>
     <p>Here’s how you’ve been doing over time:</p>
-    <canvas id="progressChart" width="400" height="200"></canvas>
+
+    <!-- Chart container -->
+    <div class="chart-wrap">
+      <canvas id="progressChart"></canvas>
+    </div>
 
     <p>Games you've won:</p>
-    <ul id="reward-list"></ul>
+    <div id="reward-list"></div>
+
 
     <button onclick="window.history.back()">Go Back</button>
   </div>
+
+    <!-- Right: Rewards Table -->
+      <div class="card">
+        <table class="rewards-table">
+          <thead>
+            <tr>
+              <th class="emoji-col">🎁</th>
+              <th>Reward</th>
+              <th>Stars</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="emoji-col">🖊️</td>
+              <td>$5 Staples Gift Card</td>
+              <td>100</td>
+            </tr>
+            <tr>
+              <td class="emoji-col">📚</td>
+              <td>$5 Office Depot Gift Card</td>
+              <td>120</td>
+            </tr>
+            <tr>
+              <td class="emoji-col">🛒</td>
+              <td>$5 Walmart (School Supplies) Gift Card</td>
+              <td>140</td>
+            </tr>
+            <tr>
+              <td class="emoji-col">💻</td>
+              <td>1-Month ABCmouse.com Credit</td>
+              <td>200</td>
+            </tr>
+            <tr>
+              <td class="emoji-col">📖</td>
+              <td>1-Month Reading Eggs Credit</td>
+              <td>220</td>
+            </tr>
+            <tr>
+              <td class="emoji-col">🎓</td>
+              <td>1-Month HOMER Credit</td>
+              <td>220</td>
+            </tr>
+            <tr>
+              <td class="emoji-col">🏪</td>
+              <td>$10 Barnes & Noble Gift Card</td>
+              <td>250</td>
+            </tr>
+            <tr>
+              <td class="emoji-col">🧩</td>
+              <td>Melissa & Doug Learning Toy Voucher</td>
+              <td>300</td>
+            </tr>
+            <tr>
+              <td class="emoji-col">🐸</td>
+              <td>LeapFrog Learning Toy Voucher</td>
+              <td>350</td>
+            </tr>
+            <tr>
+              <td class="emoji-col">🧱</td>
+              <td>LEGO Duplo Starter Set</td>
+              <td>400</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
 
   <script>
     // Get current user for per-user progress
@@ -25,23 +134,17 @@
     const list = document.getElementById("reward-list");
 
     if (Object.keys(rewards).length === 0) {
-      list.innerHTML = "<li>No rewards yet. Play games to earn stars! ⭐</li>";
+      list.innerHTML = "<p>No rewards yet. Play games to earn stars! ⭐</p>";
     } else {
+      let html = "";
       for (const [game, stars] of Object.entries(rewards)) {
-        const li = document.createElement("li");
-        li.textContent = `${game}: ⭐ ${stars} stars`;
-        list.appendChild(li);
+        html += `<p>${game}: ⭐ ${stars} stars</p>`;
       }
+      list.innerHTML = html;
     }
 
-    // 2. Build chart from star history
-    const pastStars = {
-      "Monday": 0,
-      "Tuesday": 0,
-      "Wednesday": 0,
-      "Thursday": 0,
-      "Friday": 0
-    };
+    // Past stars template
+    const pastStars = { "Monday": 0, "Tuesday": 0, "Wednesday": 0, "Thursday": 0, "Friday": 0 };
 
     const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
     let todayStars = 0;
@@ -49,7 +152,7 @@
       todayStars += stars;
     }
 
-    // 3. Track and persist star history
+    // Track & persist star history
     let starHistory = JSON.parse(localStorage.getItem(`starHistory_${currentUser}`) || "{}");
     starHistory[today] = todayStars;
 
@@ -61,7 +164,7 @@
 
     localStorage.setItem(`starHistory_${currentUser}`, JSON.stringify(starHistory));
 
-    // 4. Prepare chart data
+    // Prepare chart data
     const labels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", today];
     const data = labels.map(day => starHistory[day] || 0);
 
@@ -79,12 +182,23 @@
         }]
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
+          x: {
+            ticks: { color: "#fff" },
+            title: { display: true, text: "Days of the Week", color: "#fff" }
+          },
           y: {
             beginAtZero: true,
+            ticks: { color: "#fff" },
+            title: { display: true, text: "Stars", color: "#fff" },
             stepSize: 1,
             max: 10
           }
+        },
+        plugins: {
+          legend: { labels: { color: "#fff" } }
         }
       }
     });
