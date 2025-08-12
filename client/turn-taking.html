@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Social Choices Game</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Aladin&family=Henny+Penny&family=Kanit:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="turn-taking.css" />
+  </head>
+  <body>
+    <div class="game-container">
+      <a
+        href="index.html"
+        class="secondary"
+        role="button"
+        id="backBtn"
+        aria-label="Go back to home"
+        >Back</a
+      >
+      <h1>Social Choices Game 😊</h1>
+
+      <div class="cuebar" aria-label="Turn cue">
+        <div class="traffic" id="cueLight" role="img" aria-label="Waiting">
+          <span class="light red"></span>
+          <span class="light yellow"></span>
+          <span class="light green"></span>
+        </div>
+
+        <!-- Announced to screen readers when cue changes -->
+        <div class="cue-label" id="cueLabel" aria-live="polite">Waiting…</div>
+      </div>
+
+      <div id="question-container">
+        <p id="question">Loading...</p>
+        <div id="answer-buttons" class="btn-grid"></div>
+      </div>
+      <button id="next-btn" class="next-btn">Next</button>
+      <p id="feedback" class="feedback"></p>
+    </div>
+
+    <script src="./js/turn-taking.js"></script>
+  </body>
+</html>

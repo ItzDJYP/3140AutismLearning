@@ -1,0 +1,187 @@
+/* ---------- Fonts (the classes match your reference sheet) ---------- */
+.aladin-regular {
+  font-family: "Aladin", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+.henny-penny-regular {
+  font-family: "Henny Penny", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+.kanit-regular {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.kanit-medium {
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* ---------- Page background ---------- */
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* same blocks wallpaper + dark base, like your other pages */
+  background-image: url("images/blocks.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #1a1a1a;
+
+  color: #ffffff;
+  font-family: "Kanit", sans-serif; /* default UI font */
+  padding: 0;
+}
+
+/* ---------- Glassy game card (matches your .container style) ---------- */
+.game-container {
+  width: 90%;
+  max-width: 600px;
+
+  text-align: center;
+
+  background: rgba(1, 101, 177, 0.836); /* semi-transparent blue */
+  box-shadow: 0 8px 32px 0 rgba(25, 118, 210, 0.37); /* soft glow */
+  backdrop-filter: blur(10px); /* glass blur */
+  -webkit-backdrop-filter: blur(10px); /* Safari */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* subtle edge */
+  border-radius: 16px;
+
+  padding: 30px;
+}
+
+/* ---------- Heading + copy ---------- */
+h1 {
+  margin: 0 0 4px;
+  color: #ffffff;
+  font-family: "Henny Penny", system-ui; /* playful title font */
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  letter-spacing: 0.5px;
+}
+
+#question {
+  margin: 8px 0 12px;
+  color: #ffffff;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+/* ---------- Answers grid ---------- */
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 20px 0;
+}
+
+@media (max-width: 520px) {
+  .btn-grid {
+    grid-template-columns: 1fr;
+  }
+}
+#backBtn {
+  display: inline-block;
+  margin-bottom: 16px;
+  padding: 10px 20px;
+  background-color: #0d4997; /* deep blue */
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 2rem;
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+}
+
+backBtn:hover {
+  background-color: #155ab6; /* lighter blue on hover */
+}
+
+/* ---------- Buttons (match your blue pill buttons) ---------- */
+button {
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease,
+    transform 0.06s ease;
+  outline: none;
+}
+
+/* Answer buttons */
+.answer-btn {
+  display: grid;
+  place-items: center;
+
+  padding: 12px 14px;
+  border-radius: 12px;
+
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: "Kanit", sans-serif;
+
+  background-color: #0d4997; /* deep blue */
+  color: #ffffff;
+}
+
+.answer-btn:hover {
+  background-color: #155ab6;
+}
+.answer-btn:active {
+  transform: translateY(1px);
+}
+
+/* Correct/wrong states (kept bold & readable on glass) */
+.answer-btn.correct {
+  background-color: #22c55e; /* green */
+  color: #06200f;
+}
+.answer-btn.wrong {
+  background-color: #ef4444; /* red */
+  color: #2b0a0a;
+}
+
+/* Next button (rounded pill like your other pages) */
+.next-btn {
+  display: none; /* shown by JS */
+  margin-top: 6px;
+
+  padding: 14px 20px;
+  border-radius: 2rem;
+
+  background-color: #0d4997;
+  color: #ffffff;
+
+  font-family: "Kanit", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.2px;
+}
+
+.next-btn:hover {
+  background-color: #155ab6;
+}
+
+/* ---------- Feedback text ---------- */
+.feedback {
+  margin-top: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* ---------- Accessible focus ring ---------- */
+:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.75);
+  outline-offset: 2px;
+}
+
+/* ---------- Optional: subtle image styling (if you add any) ---------- */
+.game-container img {
+  max-width: 70px;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
