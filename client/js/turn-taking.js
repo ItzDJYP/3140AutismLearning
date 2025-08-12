@@ -211,6 +211,20 @@ function selectAnswer(e) {
     ? "✅ Great timing!"
     : "❌ Not yet. Look for a pause or a cue that it’s your turn.";
 
+  // Award star for each correct answer
+  if (correct) {
+    const currentUser = localStorage.getItem("currentUser") || "guest";
+    const rewards = JSON.parse(localStorage.getItem(`gameRewards_${currentUser}`) || "{}");
+    rewards["Turn Taking Game"] = (rewards["Turn Taking Game"] || 0) + 1;
+    localStorage.setItem(`gameRewards_${currentUser}`, JSON.stringify(rewards));
+
+    // Optional: update star history for today
+    const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+    let starHistory = JSON.parse(localStorage.getItem(`starHistory_${currentUser}`) || "{}");
+    starHistory[today] = (starHistory[today] || 0) + 1;
+    localStorage.setItem(`starHistory_${currentUser}`, JSON.stringify(starHistory));
+  }
+
   nextButton.innerText =
     currentQuestionIndex < questions.length - 1 ? "Next" : "Finish";
   nextButton.style.display = "inline-block";
@@ -231,13 +245,21 @@ function showEndMessage() {
   questionElement.innerText = "🎉 Great job! You've finished the game.";
   nextButton.style.display = "none";
 
+  // Award bonus star for finishing the game
   try {
     const currentUser = localStorage.getItem("currentUser") || "guest";
-    const key = `gameRewards_${currentUser}`;
-    const rewards = JSON.parse(localStorage.getItem(key) || "{}");
-    rewards["Social Choices Game"] = (rewards["Social Choices Game"] || 0) + 1;
-    localStorage.setItem(key, JSON.stringify(rewards));
-  } catch {}
+    const rewards = JSON.parse(localStorage.getItem(`gameRewards_${currentUser}`) || "{}");
+    rewards["Turn Taking Game"] = (rewards["Turn Taking Game"] || 0) + 1;
+    localStorage.setItem(`gameRewards_${currentUser}`, JSON.stringify(rewards));
+
+    // Optional: update star history for today
+    const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+    let starHistory = JSON.parse(localStorage.getItem(`starHistory_${currentUser}`) || "{}");
+    starHistory[today] = (starHistory[today] || 0) + 1;
+    localStorage.setItem(`starHistory_${currentUser}`, JSON.stringify(starHistory));
+  } catch (err) {
+    // ignore
+  }
 }
 
 document.addEventListener("DOMContentLoaded", startGame);
