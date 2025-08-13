@@ -66,13 +66,53 @@ Autism Education Hub with resources and stories to promote inclusivity
 ## 📁 Repository Structure
 
 ```plaintext
-atlus/
+3140AUTISMLEARNING/
+├── .vscode/                        # Editor settings (workspace)
+├── .gitignore
+├── README.md
 │
-├── Project Website/           # Project Folder
-│   ├── index.html             # Home page
-│   ├── proto.html             # Games page
-│   ├── script.js              # Javascript Functionality
-│   ├── styles.css             # Stylesheet
+├── client/                         # Front-end (static site)
+│   ├── images/                     # All image assets
+│   │
+│   ├── js/                         # Game + page scripts
+│   │   ├── emotion-match.js
+│   │   ├── friendshipchoices-game.js
+│   │   ├── pattern-path.js
+│   │   ├── script.js               # Shared/front-page helpers
+│   │   ├── turn-taking.js
+│   │   └── word-assoc.js
+│   │
+│   ├── autism-info.html
+│   ├── autisminfo.css              # (pairs with autism-info.html)
+│   ├── emotion-match.html
+│   ├── emotion-match.css
+│   ├── friendshipchoices-game.html
+│   ├── friendshipchoices-game.css
+│   ├── games.html                  # Games hub / menu
+│   ├── index.html                  # Landing / home
+│   ├── pattern-path.html
+│   ├── pattern-path.css
+│   ├── progress.html
+│   ├── progress.css
+│   ├── sign-up.html
+│   ├── sign-up.css
+│   ├── turn-taking.html
+│   ├── turn-taking.css
+│   ├── word-assoc.html
+│   └── word-assoc.css
+│
+├── data/
+│   └── progress.json               # Local demo/progress data
+│
+├── server/                         # Back-end (Node/Express)
+│   ├── models/                     # Mongoose models, etc.
+│   ├── app.js                      # Express entry point
+│   ├── package.json
+│   └── package-lock.json
+│
+├── package.json                    # (duplicate at repo root)
+└── package-lock.json               # (duplicate at repo root)
+
 
 ```
 
