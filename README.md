@@ -67,7 +67,7 @@ Autism Education Hub with resources and stories to promote inclusivity
 
 ```plaintext
 3140AUTISMLEARNING/
-├── .vscode/                        # Editor settings (workspace)
+├── .vscode/                        
 ├── .gitignore
 ├── README.md
 │
@@ -78,18 +78,18 @@ Autism Education Hub with resources and stories to promote inclusivity
 │   │   ├── emotion-match.js
 │   │   ├── friendshipchoices-game.js
 │   │   ├── pattern-path.js
-│   │   ├── script.js               # Shared/front-page helpers
+│   │   ├── script.js               # Controls index.html interactivity 
 │   │   ├── turn-taking.js
 │   │   └── word-assoc.js
 │   │
 │   ├── autism-info.html
-│   ├── autisminfo.css              # (pairs with autism-info.html)
+│   ├── autisminfo.css              
 │   ├── emotion-match.html
 │   ├── emotion-match.css
 │   ├── friendshipchoices-game.html
 │   ├── friendshipchoices-game.css
-│   ├── games.html                  # Games hub / menu
-│   ├── index.html                  # Landing / home
+│   ├── games.html                  # Ganes menu
+│   ├── index.html                  # Login and Home Page
 │   ├── pattern-path.html
 │   ├── pattern-path.css
 │   ├── progress.html
@@ -102,16 +102,15 @@ Autism Education Hub with resources and stories to promote inclusivity
 │   └── word-assoc.css
 │
 ├── data/
-│   └── progress.json               # Local demo/progress data
+│   └── progress.json               
 │
 ├── server/                         # Back-end (Node/Express)
 │   ├── models/                     # Mongoose models, etc.
 │   ├── app.js                      # Express entry point
 │   ├── package.json
 │   └── package-lock.json
-│
-├── package.json                    # (duplicate at repo root)
-└── package-lock.json               # (duplicate at repo root)
+├──                 
+└──         
 
 
 ```
