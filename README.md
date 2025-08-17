@@ -106,7 +106,8 @@ Pattern Path- Gives children calm, predictable way to practice core learning and
 │
 ├── server/                         # Back-end (Node/Express)
 │   ├── models/                     # Mongoose models, etc.
-│   ├── app.js                      # Express entry point
+│   |          ├── app.js                      # Express entry point
+|   |          ├── db.js
 │   ├── package.json
 │   └── package-lock.json
 ├──                 
