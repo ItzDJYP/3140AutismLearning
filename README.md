@@ -116,4 +116,14 @@ Pattern Path- Gives children calm, predictable way to practice core learning and
 ```
 
 ---
-
+## How to Use:
+Step 1) Install node.js using the link: https://nodejs.org/en/download
+Step 2) Install mongodb community edition using the link: https://www.mongodb.com/docs/manual/administration/install-community
+Step 3) Create a .env file and have the following:
+MONGODB_URI=mongodb://127.0.0.1:27017/autismApp
+PATH=3000
+Step 4) Open your IDE or code editor and install all dependencies and node modules using the code below:
+npm install express socket.io dotenv mongoose bcrypt express-session connect-mongo 
+Step 5) Run the local environment using the following code:
+node server/app.js
+Step 6) Go to http://localhost:3000 as the website should be running there.
